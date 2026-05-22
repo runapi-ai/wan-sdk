@@ -14,22 +14,22 @@ type VideoToVideoModel string
 type ImageModel string
 
 const (
-	ModelT2V22Turbo TextToVideoModel = "wan-2-2-a14b-text-to-video-turbo"
-	ModelT2V25      TextToVideoModel = "wan-2-5-text-to-video"
-	ModelT2V26      TextToVideoModel = "wan-2-6-text-to-video"
-	ModelT2V27      TextToVideoModel = "wan-2-7-text-to-video"
+	ModelT2V22Turbo TextToVideoModel = "wan-2.2-a14b-text-to-video-turbo"
+	ModelT2V25      TextToVideoModel = "wan-2.5-text-to-video"
+	ModelT2V26      TextToVideoModel = "wan-2.6-text-to-video"
+	ModelT2V27      TextToVideoModel = "wan-2.7-text-to-video"
 
-	ModelI2V22Turbo ImageToVideoModel = "wan-2-2-a14b-image-to-video-turbo"
-	ModelI2V25      ImageToVideoModel = "wan-2-5-image-to-video"
-	ModelI2V26      ImageToVideoModel = "wan-2-6-image-to-video"
-	ModelI2V26Flash ImageToVideoModel = "wan-2-6-flash-image-to-video"
-	ModelI2V27      ImageToVideoModel = "wan-2-7-image-to-video"
+	ModelI2V22Turbo ImageToVideoModel = "wan-2.2-a14b-image-to-video-turbo"
+	ModelI2V25      ImageToVideoModel = "wan-2.5-image-to-video"
+	ModelI2V26      ImageToVideoModel = "wan-2.6-image-to-video"
+	ModelI2V26Flash ImageToVideoModel = "wan-2.6-flash-image-to-video"
+	ModelI2V27      ImageToVideoModel = "wan-2.7-image-to-video"
 
-	ModelV2V26      VideoToVideoModel = "wan-2-6-video-to-video"
-	ModelV2V26Flash VideoToVideoModel = "wan-2-6-flash-video-to-video"
+	ModelV2V26      VideoToVideoModel = "wan-2.6-video-to-video"
+	ModelV2V26Flash VideoToVideoModel = "wan-2.6-flash-video-to-video"
 
-	ModelImage27    ImageModel = "wan-2-7-image"
-	ModelImage27Pro ImageModel = "wan-2-7-image-pro"
+	ModelImage27    ImageModel = "wan-2.7-image"
+	ModelImage27Pro ImageModel = "wan-2.7-image-pro"
 )
 
 // Video contains a generated video URL.
@@ -67,7 +67,7 @@ type ImageTaskResponse struct {
 
 // TextToVideoParams contains parameters for creating a text-to-video task.
 type TextToVideoParams struct {
-	Model                 string `json:"model" help:"required; wan-2-2-a14b-text-to-video-turbo, wan-2-5-text-to-video, wan-2-6-text-to-video, or wan-2-7-text-to-video"`
+	Model                 string `json:"model" help:"required; wan-2.2-a14b-text-to-video-turbo, wan-2.5-text-to-video, wan-2.6-text-to-video, or wan-2.7-text-to-video"`
 	Prompt                string `json:"prompt" help:"required; text prompt describing the video"`
 	CallbackURL           string `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`
 	Duration              string `json:"duration,omitempty" help:"optional; video duration in seconds. Required for 2-5"`
@@ -86,7 +86,7 @@ type TextToVideoParams struct {
 
 // ImageToVideoParams contains parameters for creating an image-to-video task.
 type ImageToVideoParams struct {
-	Model                 string   `json:"model" help:"required; wan-2-2-a14b-image-to-video-turbo, wan-2-5-image-to-video, wan-2-6-image-to-video, wan-2-6-flash-image-to-video, or wan-2-7-image-to-video"`
+	Model                 string   `json:"model" help:"required; wan-2.2-a14b-image-to-video-turbo, wan-2.5-image-to-video, wan-2.6-image-to-video, wan-2.6-flash-image-to-video, or wan-2.7-image-to-video"`
 	Prompt                string   `json:"prompt,omitempty" help:"optional for 2-2/2-5 (required for 2-6/2-7); text prompt"`
 	CallbackURL           string   `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`
 	ImageURL              string   `json:"image_url,omitempty" help:"optional; input image URL (2-2, 2-5 only)"`
@@ -113,7 +113,7 @@ type ImageToVideoParams struct {
 
 // VideoToVideoParams contains parameters for creating a video-to-video task.
 type VideoToVideoParams struct {
-	Model       string   `json:"model" help:"required; wan-2-6-video-to-video or wan-2-6-flash-video-to-video"`
+	Model       string   `json:"model" help:"required; wan-2.6-video-to-video or wan-2.6-flash-video-to-video"`
 	Prompt      string   `json:"prompt" help:"required; text prompt describing the output"`
 	VideoURLs   []string `json:"video_urls,omitempty" help:"optional; input video URLs"`
 	CallbackURL string   `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`
@@ -126,7 +126,7 @@ type VideoToVideoParams struct {
 
 // SpeechToVideoParams contains parameters for creating a speech-to-video task.
 type SpeechToVideoParams struct {
-	Model             string   `json:"model" help:"required; wan-2-2-a14b-speech-to-video-turbo"`
+	Model             string   `json:"model" help:"required; wan-2.2-a14b-speech-to-video-turbo"`
 	ImageURL          string   `json:"image_url" help:"required; reference image URL"`
 	AudioURL          string   `json:"audio_url" help:"required; driving audio URL"`
 	Prompt            string   `json:"prompt,omitempty" help:"optional; additional description prompt"`
@@ -144,7 +144,7 @@ type SpeechToVideoParams struct {
 
 // AnimateParams contains parameters for creating an animate task.
 type AnimateParams struct {
-	Model       string `json:"model" help:"required; wan-2-2-animate-move or wan-2-2-animate-replace"`
+	Model       string `json:"model" help:"required; wan-2.2-animate-move or wan-2.2-animate-replace"`
 	VideoURL    string `json:"video_url" help:"required; input video URL"`
 	ImageURL    string `json:"image_url" help:"required; reference image URL"`
 	CallbackURL string `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`
@@ -160,7 +160,7 @@ type ColorPaletteItem struct {
 
 // TextToImageParams contains parameters for creating an text-to-image task.
 type TextToImageParams struct {
-	Model            string             `json:"model" help:"required; wan-2-7-image or wan-2-7-image-pro"`
+	Model            string             `json:"model" help:"required; wan-2.7-image or wan-2.7-image-pro"`
 	Prompt           string             `json:"prompt" help:"required; text prompt describing the image"`
 	CallbackURL      string             `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`
 	AspectRatio      string             `json:"aspect_ratio,omitempty" help:"optional; 1:1, 16:9, 9:16, 4:3, 3:4, 3:2, 2:3"`
@@ -178,7 +178,7 @@ type TextToImageParams struct {
 
 // ReferenceToVideoParams contains parameters for creating a reference-to-video task.
 type ReferenceToVideoParams struct {
-	Model          string   `json:"model" help:"required; wan-2-7-r2v"`
+	Model          string   `json:"model" help:"required; wan-2.7-r2v"`
 	Prompt         string   `json:"prompt" help:"required; text prompt describing the video"`
 	CallbackURL    string   `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`
 	NegativePrompt string   `json:"negative_prompt,omitempty" help:"optional; what to avoid"`
@@ -197,7 +197,7 @@ type ReferenceToVideoParams struct {
 
 // EditVideoParams contains parameters for creating a edit-video task.
 type EditVideoParams struct {
-	Model          string `json:"model" help:"required; wan-2-7-videoedit"`
+	Model          string `json:"model" help:"required; wan-2.7-videoedit"`
 	VideoURL       string `json:"video_url" help:"required; input video URL to edit"`
 	Prompt         string `json:"prompt,omitempty" help:"optional; description of the edit"`
 	CallbackURL    string `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`

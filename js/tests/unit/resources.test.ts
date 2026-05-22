@@ -22,10 +22,10 @@ describe('Wan resources', () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-1' });
     const textToImage = new TextToImage(mockHttp);
 
-    await textToImage.create({ model: 'wan-2-7-image', prompt: 'A mountain lake' });
+    await textToImage.create({ model: 'wan-2.7-image', prompt: 'A mountain lake' });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/text_to_image', {
-      body: { model: 'wan-2-7-image', prompt: 'A mountain lake' },
+      body: { model: 'wan-2.7-image', prompt: 'A mountain lake' },
     });
   });
 
@@ -47,10 +47,10 @@ describe('Wan resources', () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-2' });
     const textToVideo = new TextToVideo(mockHttp);
 
-    await textToVideo.create({ model: 'wan-2-6-text-to-video', prompt: 'Ocean waves' });
+    await textToVideo.create({ model: 'wan-2.6-text-to-video', prompt: 'Ocean waves' });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/text_to_video', {
-      body: { model: 'wan-2-6-text-to-video', prompt: 'Ocean waves' },
+      body: { model: 'wan-2.6-text-to-video', prompt: 'Ocean waves' },
     });
   });
 
@@ -73,14 +73,14 @@ describe('Wan resources', () => {
     const imageToVideo = new ImageToVideo(mockHttp);
 
     await imageToVideo.create({
-      model: 'wan-2-6-image-to-video',
+      model: 'wan-2.6-image-to-video',
       prompt: 'Zoom in slowly',
       image_urls: ['https://example.com/image.jpg'],
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/image_to_video', {
       body: {
-        model: 'wan-2-6-image-to-video',
+        model: 'wan-2.6-image-to-video',
         prompt: 'Zoom in slowly',
         image_urls: ['https://example.com/image.jpg'],
       },
@@ -92,14 +92,14 @@ describe('Wan resources', () => {
     const videoToVideo = new VideoToVideo(mockHttp);
 
     await videoToVideo.create({
-      model: 'wan-2-6-flash-video-to-video',
+      model: 'wan-2.6-flash-video-to-video',
       prompt: 'Make it cinematic',
       video_url: 'https://example.com/video.mp4',
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/video_to_video', {
       body: {
-        model: 'wan-2-6-flash-video-to-video',
+        model: 'wan-2.6-flash-video-to-video',
         prompt: 'Make it cinematic',
         video_url: 'https://example.com/video.mp4',
       },
@@ -111,13 +111,13 @@ describe('Wan resources', () => {
     const animate = new Animate(mockHttp);
 
     await animate.create({
-      model: 'wan-2-2-animate-replace',
+      model: 'wan-2.2-animate-replace',
       image_urls: ['https://example.com/a.jpg', 'https://example.com/b.jpg'],
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/animate', {
       body: {
-        model: 'wan-2-2-animate-replace',
+        model: 'wan-2.2-animate-replace',
         image_urls: ['https://example.com/a.jpg', 'https://example.com/b.jpg'],
       },
     });
@@ -128,14 +128,14 @@ describe('Wan resources', () => {
     const editVideo = new EditVideo(mockHttp);
 
     await editVideo.create({
-      model: 'wan-2-7-video-edit',
+      model: 'wan-2.7-video-edit',
       prompt: 'Remove background',
       video_url: 'https://example.com/clip.mp4',
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/edit_video', {
       body: {
-        model: 'wan-2-7-video-edit',
+        model: 'wan-2.7-video-edit',
         prompt: 'Remove background',
         video_url: 'https://example.com/clip.mp4',
       },
@@ -147,14 +147,14 @@ describe('Wan resources', () => {
     const referenceToVideo = new ReferenceToVideo(mockHttp);
 
     await referenceToVideo.create({
-      model: 'wan-2-7-reference-to-video',
+      model: 'wan-2.7-reference-to-video',
       prompt: 'Character walking in a city',
       image_urls: ['https://example.com/ref.jpg'],
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/reference_to_video', {
       body: {
-        model: 'wan-2-7-reference-to-video',
+        model: 'wan-2.7-reference-to-video',
         prompt: 'Character walking in a city',
         image_urls: ['https://example.com/ref.jpg'],
       },
@@ -166,13 +166,13 @@ describe('Wan resources', () => {
     const speechToVideo = new SpeechToVideo(mockHttp);
 
     await speechToVideo.create({
-      model: 'wan-2-2-a14b-speech-to-video',
+      model: 'wan-2.2-a14b-speech-to-video',
       audio_url: 'https://example.com/speech.mp3',
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/speech_to_video', {
       body: {
-        model: 'wan-2-2-a14b-speech-to-video',
+        model: 'wan-2.2-a14b-speech-to-video',
         audio_url: 'https://example.com/speech.mp3',
       },
     });

@@ -3,31 +3,31 @@ import type { AsyncTaskStatus } from '@runapi.ai/core';
 // ——— Model types ———
 
 export type WanTextToVideoModel =
-  | 'wan-2-2-a14b-text-to-video-turbo'
-  | 'wan-2-5-text-to-video'
-  | 'wan-2-6-text-to-video'
-  | 'wan-2-7-text-to-video';
+  | 'wan-2.2-a14b-text-to-video-turbo'
+  | 'wan-2.5-text-to-video'
+  | 'wan-2.6-text-to-video'
+  | 'wan-2.7-text-to-video';
 
 export type WanImageToVideoModel =
-  | 'wan-2-2-a14b-image-to-video-turbo'
-  | 'wan-2-5-image-to-video'
-  | 'wan-2-6-image-to-video'
-  | 'wan-2-6-flash-image-to-video'
-  | 'wan-2-7-image-to-video';
+  | 'wan-2.2-a14b-image-to-video-turbo'
+  | 'wan-2.5-image-to-video'
+  | 'wan-2.6-image-to-video'
+  | 'wan-2.6-flash-image-to-video'
+  | 'wan-2.7-image-to-video';
 
 export type WanVideoToVideoModel =
-  | 'wan-2-6-video-to-video'
-  | 'wan-2-6-flash-video-to-video';
+  | 'wan-2.6-video-to-video'
+  | 'wan-2.6-flash-video-to-video';
 
-export type WanSpeechToVideoModel = 'wan-2-2-a14b-speech-to-video-turbo';
+export type WanSpeechToVideoModel = 'wan-2.2-a14b-speech-to-video-turbo';
 
-export type WanAnimateModel = 'wan-2-2-animate-move' | 'wan-2-2-animate-replace';
+export type WanAnimateModel = 'wan-2.2-animate-move' | 'wan-2.2-animate-replace';
 
-export type WanTextToImageModel = 'wan-2-7-image' | 'wan-2-7-image-pro';
+export type WanTextToImageModel = 'wan-2.7-image' | 'wan-2.7-image-pro';
 
-export type WanReferenceToVideoModel = 'wan-2-7-r2v';
+export type WanReferenceToVideoModel = 'wan-2.7-r2v';
 
-export type WanEditVideoModel = 'wan-2-7-videoedit';
+export type WanEditVideoModel = 'wan-2.7-videoedit';
 
 // ——— Response types ———
 

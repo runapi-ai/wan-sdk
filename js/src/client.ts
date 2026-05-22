@@ -19,7 +19,7 @@ import { EditVideo } from './resources/edit-video';
  * });
  *
  * const result = await client.textToVideo.run({
- *   model: 'wan-2-6-text-to-video',
+ *   model: 'wan-2.6-text-to-video',
  *   prompt: 'A scenic mountain landscape with flowing rivers',
  * });
  * ```

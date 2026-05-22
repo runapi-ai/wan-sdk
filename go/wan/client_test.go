@@ -43,7 +43,7 @@ func TestTextToVideoCreate(t *testing.T) {
 	if body["prompt"] != "A scenic mountain landscape" {
 		t.Fatalf("unexpected prompt: %v", body["prompt"])
 	}
-	if body["model"] != "wan-2-6-text-to-video" {
+	if body["model"] != "wan-2.6-text-to-video" {
 		t.Fatalf("unexpected model: %v", body["model"])
 	}
 	if resp.ID != "task_t2v_123" {
@@ -119,7 +119,7 @@ func TestSpeechToVideoCreate(t *testing.T) {
 	}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.SpeechToVideo.Create(context.Background(), SpeechToVideoParams{
-		Model:    "wan-2-2-a14b-speech-to-video-turbo",
+		Model:    "wan-2.2-a14b-speech-to-video-turbo",
 		ImageURL: "https://example.com/face.jpg",
 		AudioURL: "https://example.com/speech.mp3",
 	})
@@ -147,7 +147,7 @@ func TestAnimateCreate(t *testing.T) {
 	}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.Animate.Create(context.Background(), AnimateParams{
-		Model:    "wan-2-2-animate-move",
+		Model:    "wan-2.2-animate-move",
 		VideoURL: "https://example.com/motion.mp4",
 		ImageURL: "https://example.com/character.jpg",
 	})
@@ -202,7 +202,7 @@ func TestReferenceToVideoCreate(t *testing.T) {
 	}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.ReferenceToVideo.Create(context.Background(), ReferenceToVideoParams{
-		Model:          "wan-2-7-r2v",
+		Model:          "wan-2.7-r2v",
 		Prompt:         "A person walking in the park",
 		ReferenceImage: []string{"https://example.com/person.jpg"},
 	})
@@ -223,7 +223,7 @@ func TestEditVideoCreate(t *testing.T) {
 	}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.EditVideo.Create(context.Background(), EditVideoParams{
-		Model:    "wan-2-7-videoedit",
+		Model:    "wan-2.7-videoedit",
 		VideoURL: "https://example.com/original.mp4",
 		Prompt:   "Make the sky more dramatic",
 	})
