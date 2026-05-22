@@ -1,4 +1,24 @@
-# Wan Video API SDK for RunAPI
+<p align="center">
+  <a href="https://runapi.ai"><img src="https://runapi.ai/icon.svg" height="56" alt="RunAPI"></a>
+</p>
+
+<h3 align="center">
+  <a href="https://github.com/runapi-ai/wan-sdk">Wan API SDK for RunAPI</a>
+</h3>
+
+<p align="center">
+  Wan API SDKs for JavaScript, Ruby, and Go on RunAPI.
+</p>
+
+<div align="center">
+
+[![npm](https://img.shields.io/npm/v/@runapi.ai/wan)](https://www.npmjs.com/package/@runapi.ai/wan)
+[![RubyGems](https://img.shields.io/gem/v/runapi-wan)](https://rubygems.org/gems/runapi-wan)
+[![Go Reference](https://pkg.go.dev/badge/github.com/runapi-ai/wan-sdk/go.svg)](https://pkg.go.dev/github.com/runapi-ai/wan-sdk/go)
+[![License](https://img.shields.io/github/license/runapi-ai/wan-sdk)](https://github.com/runapi-ai/wan-sdk/blob/main/LICENSE)
+
+</div>
+<br/>
 
 The wan video api SDK packages JavaScript, Ruby, and Go clients for Wan on RunAPI. Use this wan video api SDK for text-to-video, image-to-video, video-to-video, animation, and editing workflows that need typed installs, JSON request bodies, task polling, and consistent RunAPI errors across services.
 
