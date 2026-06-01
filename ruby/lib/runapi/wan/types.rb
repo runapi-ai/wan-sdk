@@ -8,6 +8,7 @@ module RunApi
         wan-2.5-text-to-video
         wan-2.6-text-to-video
         wan-2.7-text-to-video
+        wan-2.7-r2v
       ].freeze
 
       IMAGE_TO_VIDEO_MODELS = %w[
@@ -18,16 +19,14 @@ module RunApi
         wan-2.7-image-to-video
       ].freeze
 
-      VIDEO_TO_VIDEO_MODELS = %w[
-        wan-2.6-video-to-video
-        wan-2.6-flash-video-to-video
-      ].freeze
-
       SPEECH_TO_VIDEO_MODELS = %w[wan-2.2-a14b-speech-to-video-turbo].freeze
       ANIMATE_MODELS = %w[wan-2.2-animate-move wan-2.2-animate-replace].freeze
       TEXT_TO_IMAGE_MODELS = %w[wan-2.7-image wan-2.7-image-pro].freeze
-      REFERENCE_TO_VIDEO_MODELS = %w[wan-2.7-r2v].freeze
-      EDIT_VIDEO_MODELS = %w[wan-2.7-videoedit].freeze
+      EDIT_VIDEO_MODELS = %w[
+        wan-2.6-edit-video
+        wan-2.6-flash-edit-video
+        wan-2.7-edit-video
+      ].freeze
 
       class Video < RunApi::Core::BaseModel
         optional :url, String
@@ -40,14 +39,14 @@ module RunApi
       class VideoTaskResponse < RunApi::Core::TaskResponse
         required :id, String
         optional :status, String, enum: -> { RunApi::Core::TaskResponse::Status::ALL }
-        optional :videos, [ -> { Video } ]
+        optional :videos, [-> { Video }]
         optional :error, String
       end
 
       class ImageTaskResponse < RunApi::Core::TaskResponse
         required :id, String
         optional :status, String, enum: -> { RunApi::Core::TaskResponse::Status::ALL }
-        optional :images, [ -> { Image } ]
+        optional :images, [-> { Image }]
         optional :error, String
       end
 
@@ -55,11 +54,11 @@ module RunApi
       # `status: "completed"`. Result arrays are required so consumers never
       # have to null-check them on a successful task.
       class CompletedVideoTaskResponse < VideoTaskResponse
-        required :videos, [ -> { Video } ]
+        required :videos, [-> { Video }]
       end
 
       class CompletedImageTaskResponse < ImageTaskResponse
-        required :images, [ -> { Image } ]
+        required :images, [-> { Image }]
       end
     end
   end

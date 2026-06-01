@@ -3,10 +3,8 @@ import type { HttpClient } from '@runapi.ai/core';
 import { TextToImage } from '../../src/resources/text-to-image';
 import { TextToVideo } from '../../src/resources/text-to-video';
 import { ImageToVideo } from '../../src/resources/image-to-video';
-import { VideoToVideo } from '../../src/resources/video-to-video';
 import { Animate } from '../../src/resources/animate';
 import { EditVideo } from '../../src/resources/edit-video';
-import { ReferenceToVideo } from '../../src/resources/reference-to-video';
 import { SpeechToVideo } from '../../src/resources/speech-to-video';
 
 describe('Wan resources', () => {
@@ -22,10 +20,29 @@ describe('Wan resources', () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-1' });
     const textToImage = new TextToImage(mockHttp);
 
-    await textToImage.create({ model: 'wan-2.7-image', prompt: 'A mountain lake' });
+    await textToImage.create({ model: 'wan-2.7-image', prompt: 'A mountain lake', aspect_ratio: '1:8', output_resolution: '2k', output_count: 2 });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/text_to_image', {
-      body: { model: 'wan-2.7-image', prompt: 'A mountain lake' },
+      body: { model: 'wan-2.7-image', prompt: 'A mountain lake', aspect_ratio: '1:8', output_resolution: '2k', output_count: 2 },
+    });
+  });
+
+  it('creates images with source_image_urls', async () => {
+    vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-source' });
+    const textToImage = new TextToImage(mockHttp);
+
+    await textToImage.create({
+      model: 'wan-2.7-image',
+      prompt: 'Edit this image',
+      source_image_urls: ['https://cdn.runapi.ai/public/samples/source.jpg'],
+    });
+
+    expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/text_to_image', {
+      body: {
+        model: 'wan-2.7-image',
+        prompt: 'Edit this image',
+        source_image_urls: ['https://cdn.runapi.ai/public/samples/source.jpg'],
+      },
     });
   });
 
@@ -54,6 +71,27 @@ describe('Wan resources', () => {
     });
   });
 
+  it('creates r2v through text-to-video with canonical reference fields', async () => {
+    vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-r2v' });
+    const textToVideo = new TextToVideo(mockHttp);
+
+    await textToVideo.create({
+      model: 'wan-2.7-r2v',
+      prompt: 'Character walking in a city',
+      reference_image_urls: ['https://cdn.runapi.ai/public/samples/reference.jpg'],
+      output_resolution: '1080p',
+    });
+
+    expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/text_to_video', {
+      body: {
+        model: 'wan-2.7-r2v',
+        prompt: 'Character walking in a city',
+        reference_image_urls: ['https://cdn.runapi.ai/public/samples/reference.jpg'],
+        output_resolution: '1080p',
+      },
+    });
+  });
+
   it('gets text-to-video by id', async () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({
       id: 'task-2',
@@ -68,112 +106,107 @@ describe('Wan resources', () => {
     expect(result.videos?.[0]?.url).toBe('https://cdn-video.runapi.ai/video.mp4');
   });
 
-  it('creates image-to-video with image_urls', async () => {
+  it('creates image-to-video with first_frame_image_url', async () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-3' });
     const imageToVideo = new ImageToVideo(mockHttp);
 
     await imageToVideo.create({
       model: 'wan-2.6-image-to-video',
       prompt: 'Zoom in slowly',
-      image_urls: ['https://example.com/image.jpg'],
+      first_frame_image_url: 'https://cdn.runapi.ai/public/samples/result.jpg',
+      output_resolution: '1080p',
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/image_to_video', {
       body: {
         model: 'wan-2.6-image-to-video',
         prompt: 'Zoom in slowly',
-        image_urls: ['https://example.com/image.jpg'],
+        first_frame_image_url: 'https://cdn.runapi.ai/public/samples/result.jpg',
+        output_resolution: '1080p',
       },
     });
   });
 
-  it('creates video-to-video with video_url', async () => {
+  it('creates 2.6 edit-video with source_video_urls', async () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-4' });
-    const videoToVideo = new VideoToVideo(mockHttp);
+    const editVideo = new EditVideo(mockHttp);
 
-    await videoToVideo.create({
-      model: 'wan-2.6-flash-video-to-video',
+    await editVideo.create({
+      model: 'wan-2.6-flash-edit-video',
       prompt: 'Make it cinematic',
-      video_url: 'https://example.com/video.mp4',
+      source_video_urls: ['https://cdn.runapi.ai/public/samples/source.mp4'],
+      output_resolution: '1080p',
     });
 
-    expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/video_to_video', {
+    expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/edit_video', {
       body: {
-        model: 'wan-2.6-flash-video-to-video',
+        model: 'wan-2.6-flash-edit-video',
         prompt: 'Make it cinematic',
-        video_url: 'https://example.com/video.mp4',
+        source_video_urls: ['https://cdn.runapi.ai/public/samples/source.mp4'],
+        output_resolution: '1080p',
       },
     });
   });
 
-  it('creates animation with image_urls', async () => {
+  it('creates animation with source image and reference video inputs', async () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-5' });
     const animate = new Animate(mockHttp);
 
     await animate.create({
       model: 'wan-2.2-animate-replace',
-      image_urls: ['https://example.com/a.jpg', 'https://example.com/b.jpg'],
+      reference_video_url: 'https://cdn.runapi.ai/public/samples/source.mp4',
+      source_image_url: 'https://cdn.runapi.ai/public/samples/target.jpg',
+      output_resolution: '580p',
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/animate', {
       body: {
         model: 'wan-2.2-animate-replace',
-        image_urls: ['https://example.com/a.jpg', 'https://example.com/b.jpg'],
+        reference_video_url: 'https://cdn.runapi.ai/public/samples/source.mp4',
+        source_image_url: 'https://cdn.runapi.ai/public/samples/target.jpg',
+        output_resolution: '580p',
       },
     });
   });
 
-  it('creates video-edit with video_url', async () => {
+  it('creates video-edit with source_video_url', async () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-6' });
     const editVideo = new EditVideo(mockHttp);
 
     await editVideo.create({
-      model: 'wan-2.7-video-edit',
+      model: 'wan-2.7-edit-video',
       prompt: 'Remove background',
-      video_url: 'https://example.com/clip.mp4',
+      source_video_url: 'https://cdn.runapi.ai/public/samples/source.mp4',
+      reference_image_url: 'https://cdn.runapi.ai/public/samples/style.png',
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/edit_video', {
       body: {
-        model: 'wan-2.7-video-edit',
+        model: 'wan-2.7-edit-video',
         prompt: 'Remove background',
-        video_url: 'https://example.com/clip.mp4',
+        source_video_url: 'https://cdn.runapi.ai/public/samples/source.mp4',
+        reference_image_url: 'https://cdn.runapi.ai/public/samples/style.png',
       },
     });
   });
 
-  it('creates reference-to-video with image_urls', async () => {
-    vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-7' });
-    const referenceToVideo = new ReferenceToVideo(mockHttp);
-
-    await referenceToVideo.create({
-      model: 'wan-2.7-reference-to-video',
-      prompt: 'Character walking in a city',
-      image_urls: ['https://example.com/ref.jpg'],
-    });
-
-    expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/reference_to_video', {
-      body: {
-        model: 'wan-2.7-reference-to-video',
-        prompt: 'Character walking in a city',
-        image_urls: ['https://example.com/ref.jpg'],
-      },
-    });
-  });
-
-  it('creates speech-to-video with audio_url', async () => {
+  it('creates speech-to-video with source audio', async () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-8' });
     const speechToVideo = new SpeechToVideo(mockHttp);
 
     await speechToVideo.create({
-      model: 'wan-2.2-a14b-speech-to-video',
-      audio_url: 'https://example.com/speech.mp3',
+      model: 'wan-2.2-a14b-speech-to-video-turbo',
+      source_image_url: 'https://cdn.runapi.ai/public/samples/face.jpg',
+      source_audio_url: 'https://cdn.runapi.ai/public/samples/speech.mp3',
+      output_resolution: '720p',
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/speech_to_video', {
       body: {
-        model: 'wan-2.2-a14b-speech-to-video',
-        audio_url: 'https://example.com/speech.mp3',
+        model: 'wan-2.2-a14b-speech-to-video-turbo',
+        source_image_url: 'https://cdn.runapi.ai/public/samples/face.jpg',
+        source_audio_url: 'https://cdn.runapi.ai/public/samples/speech.mp3',
+        output_resolution: '720p',
       },
     });
   });

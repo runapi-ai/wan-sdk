@@ -34,7 +34,7 @@ Generate and edit video with Wan through RunAPI. The default path for one-off ag
 
 The `runapi` binary is the runtime dependency. Run `runapi auth status` first. For agents and headless runs, prefer `RUNAPI_API_KEY` or import it into saved config with `printf '%s' "$RUNAPI_API_KEY" | runapi auth import-token --token -`. Use `runapi login` only when the user explicitly wants interactive browser auth.
 
-Inspect the available actions and request fields with CLI help:
+Inspect the available commands and request fields with CLI help:
 
 ```shell
 runapi wan --help
@@ -54,7 +54,7 @@ runapi wan text-to-video --async --input-file request.json
 runapi wait <task-id> --service wan --action text-to-video
 ```
 
-Available actions: `text-to-video`, `image-to-video`, `video-to-video`, `speech-to-video`, `animate`, `text-to-image`, `reference-to-video`, `edit-video`.
+Available commands: `text-to-video`, `image-to-video`, `speech-to-video`, `animate`, `text-to-image`, `edit-video`.
 
 ## SDK integration path
 
@@ -81,13 +81,12 @@ When integrating Wan into an app, backend, worker, or library — not for one-of
 - [2.5 image to video](https://runapi.ai/models/wan/2.5-image-to-video.md)
 - [2.6 text to video](https://runapi.ai/models/wan/2.6-text-to-video.md)
 - [2.6 image to video](https://runapi.ai/models/wan/2.6-image-to-video.md)
-- [2.6 video to video](https://runapi.ai/models/wan/2.6-video-to-video.md)
+- [2.6 edit video](https://runapi.ai/models/wan/2.6-edit-video.md)
 - [2.6 flash image to video](https://runapi.ai/models/wan/2.6-flash-image-to-video.md)
-- [2.6 flash video to video](https://runapi.ai/models/wan/2.6-flash-video-to-video.md)
+- [2.6 flash edit video](https://runapi.ai/models/wan/2.6-flash-edit-video.md)
 - [2.7 text to video](https://runapi.ai/models/wan/2.7-text-to-video.md)
 - [2.7 image to video](https://runapi.ai/models/wan/2.7-image-to-video.md)
 - [2.7 image](https://runapi.ai/models/wan/2.7-image.md)
 - [2.7 image pro](https://runapi.ai/models/wan/2.7-image-pro.md)
-- [2.7 reference to video](https://runapi.ai/models/wan/2.7-r2v.md)
-- [2.7 video edit](https://runapi.ai/models/wan/2.7-videoedit.md)
-
+- [2.7 R2V text to video](https://runapi.ai/models/wan/2.7-r2v.md)
+- [2.7 video edit](https://runapi.ai/models/wan/2.7-edit-video.md)

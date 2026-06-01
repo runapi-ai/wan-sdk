@@ -20,7 +20,7 @@
 </div>
 <br/>
 
-The wan video api SDK packages JavaScript, Ruby, and Go clients for Wan on RunAPI. Use this wan video api SDK for text-to-video, image-to-video, video-to-video, animation, and editing workflows that need typed installs, JSON request bodies, task polling, and consistent RunAPI errors across services.
+The wan video api SDK packages JavaScript, Ruby, and Go clients for Wan on RunAPI. Use this wan video api SDK for text-to-video, image-to-video, animation, and video editing workflows that need typed installs, JSON request bodies, task polling, and consistent RunAPI errors across services.
 
 Wan belongs to the Alibaba catalog on RunAPI. The public model page is https://runapi.ai/models/wan; variant pages below carry pricing, rate-limit, and commercial-usage details. The public `wan-sdk` repository groups the JavaScript, Ruby, and Go packages for this model.
 
@@ -39,7 +39,7 @@ go get github.com/runapi-ai/wan-sdk/go@latest
 - Use `create` for submit-only jobs, `get` for status lookup, and `run` for submit-and-poll scripts.
 - Handle authentication, validation, rate limits, insufficient credits, task failures, and polling timeouts through RunAPI SDK errors.
 
-The JavaScript client exposes text to videos, image to videos, video to videos, speech to videos, animations, images, reference to videos, video edits resources, and the Ruby and Go packages mirror the same RunAPI task lifecycle.
+The JavaScript client exposes text-to-video, image-to-video, speech-to-video, animation, image, and video-edit resources, and the Ruby and Go packages mirror the same RunAPI task lifecycle.
 
 ## JavaScript quick start
 
@@ -85,15 +85,15 @@ Use the most specific wan video api variant page for pricing, rate limits, and c
 - [2.5 image to video](https://runapi.ai/models/wan/2.5-image-to-video)
 - [2.6 text to video](https://runapi.ai/models/wan/2.6-text-to-video)
 - [2.6 image to video](https://runapi.ai/models/wan/2.6-image-to-video)
-- [2.6 video to video](https://runapi.ai/models/wan/2.6-video-to-video)
+- [2.6 edit video](https://runapi.ai/models/wan/2.6-edit-video)
 - [2.6 flash image to video](https://runapi.ai/models/wan/2.6-flash-image-to-video)
-- [2.6 flash video to video](https://runapi.ai/models/wan/2.6-flash-video-to-video)
+- [2.6 flash edit video](https://runapi.ai/models/wan/2.6-flash-edit-video)
 - [2.7 text to video](https://runapi.ai/models/wan/2.7-text-to-video)
 - [2.7 image to video](https://runapi.ai/models/wan/2.7-image-to-video)
 - [2.7 image](https://runapi.ai/models/wan/2.7-image)
 - [2.7 image pro](https://runapi.ai/models/wan/2.7-image-pro)
-- [2.7 reference to video](https://runapi.ai/models/wan/2.7-r2v)
-- [2.7 video edit](https://runapi.ai/models/wan/2.7-videoedit)
+- [2.7 R2V text to video](https://runapi.ai/models/wan/2.7-r2v)
+- [2.7 video edit](https://runapi.ai/models/wan/2.7-edit-video)
 
 Default pricing link for the wan video api SDK: https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo
 

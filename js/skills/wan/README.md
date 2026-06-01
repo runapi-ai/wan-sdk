@@ -79,15 +79,15 @@ const url = result.videos[0].url;
 - [2.5 image to video](https://runapi.ai/models/wan/2.5-image-to-video)
 - [2.6 text to video](https://runapi.ai/models/wan/2.6-text-to-video)
 - [2.6 image to video](https://runapi.ai/models/wan/2.6-image-to-video)
-- [2.6 video to video](https://runapi.ai/models/wan/2.6-video-to-video)
+- [2.6 edit video](https://runapi.ai/models/wan/2.6-edit-video)
 - [2.6 flash image to video](https://runapi.ai/models/wan/2.6-flash-image-to-video)
-- [2.6 flash video to video](https://runapi.ai/models/wan/2.6-flash-video-to-video)
+- [2.6 flash edit video](https://runapi.ai/models/wan/2.6-flash-edit-video)
 - [2.7 text to video](https://runapi.ai/models/wan/2.7-text-to-video)
 - [2.7 image to video](https://runapi.ai/models/wan/2.7-image-to-video)
 - [2.7 image](https://runapi.ai/models/wan/2.7-image)
 - [2.7 image pro](https://runapi.ai/models/wan/2.7-image-pro)
-- [2.7 reference to video](https://runapi.ai/models/wan/2.7-r2v)
-- [2.7 video edit](https://runapi.ai/models/wan/2.7-videoedit)
+- [2.7 R2V text to video](https://runapi.ai/models/wan/2.7-r2v)
+- [2.7 video edit](https://runapi.ai/models/wan/2.7-edit-video)
 
 ## Agent rules
 

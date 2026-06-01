@@ -2,11 +2,9 @@ export { WanClient } from './client';
 export type {
   WanTextToVideoModel,
   WanImageToVideoModel,
-  WanVideoToVideoModel,
   WanSpeechToVideoModel,
   WanAnimateModel,
   WanTextToImageModel,
-  WanReferenceToVideoModel,
   WanEditVideoModel,
   Video,
   Image,
@@ -14,11 +12,9 @@ export type {
   ImageTaskResponse,
   TextToVideoParams,
   ImageToVideoParams,
-  VideoToVideoParams,
   SpeechToVideoParams,
   AnimateParams,
   ColorPaletteItem,
   TextToImageParams,
-  ReferenceToVideoParams,
   EditVideoParams,
 } from './types';

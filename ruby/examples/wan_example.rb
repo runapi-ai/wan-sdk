@@ -22,7 +22,7 @@ puts "\n=== Text to Video ==="
 result = client.text_to_video.run(
   model: "wan-2.6-text-to-video",
   prompt: "Ocean waves crashing on a rocky shore, cinematic",
-  resolution: "720p",
+  output_resolution: "720p",
   aspect_ratio: "16:9"
 )
 puts "Status: #{result.status}"
@@ -54,5 +54,5 @@ end
 begin
   client.image_to_video.create(model: "wan-2.6-flash-image-to-video", prompt: "test", audio: true)
 rescue RunApi::Core::ValidationError => e
-  puts "Caught ValidationError (missing image_urls): #{e.message}"
+  puts "Caught ValidationError (missing first_frame_image_url): #{e.message}"
 end

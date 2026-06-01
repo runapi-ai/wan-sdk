@@ -33,8 +33,8 @@ module RunApi
 
         def validate_params!(params)
           raise Core::ValidationError, "model is required" unless param(params, :model)
-          raise Core::ValidationError, "image_url is required" unless param(params, :image_url)
-          raise Core::ValidationError, "audio_url is required" unless param(params, :audio_url)
+          raise Core::ValidationError, "source_image_url is required" unless param(params, :source_image_url)
+          raise Core::ValidationError, "source_audio_url is required" unless param(params, :source_audio_url)
 
           model = param(params, :model)
           unless Types::SPEECH_TO_VIDEO_MODELS.include?(model)

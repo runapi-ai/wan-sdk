@@ -14,14 +14,12 @@ import (
 )
 
 const (
-	textToVideoPath      = "/api/v1/wan/text_to_video"
-	imageToVideoPath     = "/api/v1/wan/image_to_video"
-	videoToVideoPath     = "/api/v1/wan/video_to_video"
-	speechToVideoPath    = "/api/v1/wan/speech_to_video"
-	animatePath           = "/api/v1/wan/animate"
-	textToImagePath      = "/api/v1/wan/text_to_image"
-	referenceToVideoPath = "/api/v1/wan/reference_to_video"
-	editVideoPath        = "/api/v1/wan/edit_video"
+	textToVideoPath   = "/api/v1/wan/text_to_video"
+	imageToVideoPath  = "/api/v1/wan/image_to_video"
+	speechToVideoPath = "/api/v1/wan/speech_to_video"
+	animatePath       = "/api/v1/wan/animate"
+	textToImagePath   = "/api/v1/wan/text_to_image"
+	editVideoPath     = "/api/v1/wan/edit_video"
 )
 
 // Client is the Wan video and image generation API client.
@@ -30,16 +28,12 @@ type Client struct {
 	TextToVideo *TextToVideo
 	// ImageToVideo provides image-to-video generation operations.
 	ImageToVideo *ImageToVideo
-	// VideoToVideo provides video-to-video generation operations.
-	VideoToVideo *VideoToVideo
 	// SpeechToVideo provides speech-driven video generation operations.
 	SpeechToVideo *SpeechToVideo
 	// Animate provides animation operations.
 	Animate *Animate
 	// TextToImage provides text-to-image operations.
 	TextToImage *TextToImage
-	// ReferenceToVideo provides reference-to-video generation operations.
-	ReferenceToVideo *ReferenceToVideo
 	// EditVideo provides video editing operations.
 	EditVideo *EditVideo
 }
@@ -60,14 +54,12 @@ func NewClient(opts ...option.ClientOption) (*Client, error) {
 // NewClientWithHTTP creates a Wan client with a pre-configured HTTP transport.
 func NewClientWithHTTP(httpClient core.HTTPClient) *Client {
 	return &Client{
-		TextToVideo:      &TextToVideo{http: httpClient},
-		ImageToVideo:     &ImageToVideo{http: httpClient},
-		VideoToVideo:     &VideoToVideo{http: httpClient},
-		SpeechToVideo:    &SpeechToVideo{http: httpClient},
-		Animate:           &Animate{http: httpClient},
-		TextToImage:      &TextToImage{http: httpClient},
-		ReferenceToVideo: &ReferenceToVideo{http: httpClient},
-		EditVideo:        &EditVideo{http: httpClient},
+		TextToVideo:   &TextToVideo{http: httpClient},
+		ImageToVideo:  &ImageToVideo{http: httpClient},
+		SpeechToVideo: &SpeechToVideo{http: httpClient},
+		Animate:       &Animate{http: httpClient},
+		TextToImage:   &TextToImage{http: httpClient},
+		EditVideo:     &EditVideo{http: httpClient},
 	}
 }
 
@@ -99,22 +91,6 @@ func (r *ImageToVideo) Get(ctx context.Context, id string, opts ...option.Reques
 	return core.GetJSON[VideoTaskResponse](ctx, r.http, core.ResourcePath(imageToVideoPath, id), requestOptions)
 }
 func (r *ImageToVideo) Run(ctx context.Context, params ImageToVideoParams, opts ...option.RequestOption) (*VideoTaskResponse, error) {
-	_, pollingOptions := option.ResolveRequestOptions(opts...)
-	return core.RunAsync(ctx, func(ctx context.Context) (*core.TaskCreateResponse, error) { return r.Create(ctx, params, opts...) }, func(ctx context.Context, id string) (*VideoTaskResponse, error) { return r.Get(ctx, id, opts...) }, pollingOptions)
-}
-
-// VideoToVideo transforms videos using text prompts.
-type VideoToVideo struct{ http core.HTTPClient }
-
-func (r *VideoToVideo) Create(ctx context.Context, params VideoToVideoParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
-	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, videoToVideoPath, core.CompactParams(params), requestOptions)
-}
-func (r *VideoToVideo) Get(ctx context.Context, id string, opts ...option.RequestOption) (*VideoTaskResponse, error) {
-	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.GetJSON[VideoTaskResponse](ctx, r.http, core.ResourcePath(videoToVideoPath, id), requestOptions)
-}
-func (r *VideoToVideo) Run(ctx context.Context, params VideoToVideoParams, opts ...option.RequestOption) (*VideoTaskResponse, error) {
 	_, pollingOptions := option.ResolveRequestOptions(opts...)
 	return core.RunAsync(ctx, func(ctx context.Context) (*core.TaskCreateResponse, error) { return r.Create(ctx, params, opts...) }, func(ctx context.Context, id string) (*VideoTaskResponse, error) { return r.Get(ctx, id, opts...) }, pollingOptions)
 }
@@ -165,22 +141,6 @@ func (r *TextToImage) Get(ctx context.Context, id string, opts ...option.Request
 func (r *TextToImage) Run(ctx context.Context, params TextToImageParams, opts ...option.RequestOption) (*ImageTaskResponse, error) {
 	_, pollingOptions := option.ResolveRequestOptions(opts...)
 	return core.RunAsync(ctx, func(ctx context.Context) (*core.TaskCreateResponse, error) { return r.Create(ctx, params, opts...) }, func(ctx context.Context, id string) (*ImageTaskResponse, error) { return r.Get(ctx, id, opts...) }, pollingOptions)
-}
-
-// ReferenceToVideo generates videos using reference images/videos.
-type ReferenceToVideo struct{ http core.HTTPClient }
-
-func (r *ReferenceToVideo) Create(ctx context.Context, params ReferenceToVideoParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
-	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, referenceToVideoPath, core.CompactParams(params), requestOptions)
-}
-func (r *ReferenceToVideo) Get(ctx context.Context, id string, opts ...option.RequestOption) (*VideoTaskResponse, error) {
-	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.GetJSON[VideoTaskResponse](ctx, r.http, core.ResourcePath(referenceToVideoPath, id), requestOptions)
-}
-func (r *ReferenceToVideo) Run(ctx context.Context, params ReferenceToVideoParams, opts ...option.RequestOption) (*VideoTaskResponse, error) {
-	_, pollingOptions := option.ResolveRequestOptions(opts...)
-	return core.RunAsync(ctx, func(ctx context.Context) (*core.TaskCreateResponse, error) { return r.Create(ctx, params, opts...) }, func(ctx context.Context, id string) (*VideoTaskResponse, error) { return r.Get(ctx, id, opts...) }, pollingOptions)
 }
 
 // EditVideo edits existing videos using text prompts.
