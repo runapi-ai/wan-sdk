@@ -1,50 +1,73 @@
 // Package wan provides the Wan video and image generation API client.
 package wan
 
-// TextToVideoModel identifies the Wan text-to-video model variant.
+// TextToVideoModel selects the Wan text-to-video engine variant.
+// Generations range from 2.2 (turbo, fast at lower resolution) through
+// 2.7 (highest quality, supports negative prompts and watermark control).
 type TextToVideoModel string
 
-// ImageToVideoModel identifies the Wan image-to-video model variant.
+// ImageToVideoModel selects the Wan image-to-video engine variant.
+// Flash variants trade visual fidelity for speed; standard/later generations
+// offer higher resolution and features like last-frame control and audio.
 type ImageToVideoModel string
 
-// EditVideoModel identifies the Wan video editing model variant.
+// EditVideoModel selects the Wan video editing engine variant.
+// Edit video transforms an existing video guided by a text prompt.
 type EditVideoModel string
 
-// ImageModel identifies the Wan image generation model variant.
+// ImageModel selects the Wan image generation engine variant.
 type ImageModel string
 
 const (
+	// ModelT2V22Turbo is the 2.2-generation turbo model. Fast generation, max 720p output.
 	ModelT2V22Turbo TextToVideoModel = "wan-2.2-a14b-text-to-video-turbo"
-	ModelT2V25      TextToVideoModel = "wan-2.5-text-to-video"
-	ModelT2V26      TextToVideoModel = "wan-2.6-text-to-video"
-	ModelT2V27      TextToVideoModel = "wan-2.7-text-to-video"
-	ModelT2V27R2V   TextToVideoModel = "wan-2.7-r2v"
+	// ModelT2V25 is the 2.5-generation model. Supports 720p/1080p and negative prompts.
+	ModelT2V25 TextToVideoModel = "wan-2.5-text-to-video"
+	// ModelT2V26 is the 2.6-generation model. Supports 720p/1080p output.
+	ModelT2V26 TextToVideoModel = "wan-2.6-text-to-video"
+	// ModelT2V27 is the 2.7-generation model. Supports 720p/1080p, negative prompts, watermark, and background audio.
+	ModelT2V27 TextToVideoModel = "wan-2.7-text-to-video"
+	// ModelT2V27R2V is the 2.7 R2V model. Accepts reference images, reference videos,
+	// a first-frame image, and reference audio to guide generation alongside the text prompt.
+	ModelT2V27R2V TextToVideoModel = "wan-2.7-r2v"
 
+	// ModelI2V22Turbo is the 2.2-generation turbo image-to-video model. Fast, max 720p.
 	ModelI2V22Turbo ImageToVideoModel = "wan-2.2-a14b-image-to-video-turbo"
-	ModelI2V25      ImageToVideoModel = "wan-2.5-image-to-video"
-	ModelI2V26      ImageToVideoModel = "wan-2.6-image-to-video"
+	// ModelI2V25 is the 2.5-generation model. Requires first_frame_image_url and duration_seconds.
+	ModelI2V25 ImageToVideoModel = "wan-2.5-image-to-video"
+	// ModelI2V26 is the 2.6-generation model. Requires prompt and first_frame_image_url.
+	ModelI2V26 ImageToVideoModel = "wan-2.6-image-to-video"
+	// ModelI2V26Flash is the 2.6-generation flash model. Faster than standard 2.6, supports audio and multi-shot mode.
 	ModelI2V26Flash ImageToVideoModel = "wan-2.6-flash-image-to-video"
-	ModelI2V27      ImageToVideoModel = "wan-2.7-image-to-video"
+	// ModelI2V27 is the 2.7-generation model. Supports last-frame control, video continuation,
+	// driving audio, background audio, and watermark control.
+	ModelI2V27 ImageToVideoModel = "wan-2.7-image-to-video"
 
-	ModelEdit26      EditVideoModel = "wan-2.6-edit-video"
+	// ModelEdit26 is the 2.6-generation video editor. Requires prompt and source_video_urls (plural).
+	ModelEdit26 EditVideoModel = "wan-2.6-edit-video"
+	// ModelEdit26Flash is the 2.6-generation flash video editor. Faster, supports audio and multi-shot mode.
 	ModelEdit26Flash EditVideoModel = "wan-2.6-flash-edit-video"
-	ModelEdit27      EditVideoModel = "wan-2.7-edit-video"
+	// ModelEdit27 is the 2.7-generation video editor. Uses source_video_url (singular) and supports aspect ratio control.
+	ModelEdit27 EditVideoModel = "wan-2.7-edit-video"
 
-	ModelImage27    ImageModel = "wan-2.7-image"
+	// ModelImage27 is the 2.7-generation standard image model.
+	ModelImage27 ImageModel = "wan-2.7-image"
+	// ModelImage27Pro is the 2.7-generation pro image model. Supports thinking_mode for enhanced reasoning.
 	ModelImage27Pro ImageModel = "wan-2.7-image-pro"
 )
 
-// Video contains a generated video URL.
+// Video holds a URL to a generated video file.
 type Video struct {
 	URL string `json:"url"`
 }
 
-// Image contains a generated image URL.
+// Image holds a URL to a generated image file.
 type Image struct {
 	URL string `json:"url"`
 }
 
-// AsyncTaskResponse is the base response for async tasks.
+// AsyncTaskResponse carries the task ID, lifecycle status, and any error message
+// for all Wan async operations. Embed this in endpoint-specific responses.
 type AsyncTaskResponse struct {
 	ID     string `json:"id"`
 	Status string `json:"status"`
@@ -55,19 +78,23 @@ func (r AsyncTaskResponse) GetID() string     { return r.ID }
 func (r AsyncTaskResponse) GetStatus() string { return r.Status }
 func (r AsyncTaskResponse) GetError() string  { return r.Error }
 
-// VideoTaskResponse is returned when polling a video generation task.
+// VideoTaskResponse is the completed result of a video generation task.
+// Videos contains one or more output URLs once Status reaches a terminal state.
 type VideoTaskResponse struct {
 	AsyncTaskResponse
 	Videos []Video `json:"videos,omitempty"`
 }
 
-// ImageTaskResponse is returned when polling an text-to-image task.
+// ImageTaskResponse is the completed result of a text-to-image task.
+// Images contains one or more output URLs once Status reaches a terminal state.
 type ImageTaskResponse struct {
 	AsyncTaskResponse
 	Images []Image `json:"images,omitempty"`
 }
 
-// TextToVideoParams contains parameters for creating a text-to-video task.
+// TextToVideoParams configures text-to-video generation.
+// Some fields are model-specific: NegativePrompt works on 2.5 and 2.7;
+// Ratio, Watermark, and BackgroundAudioURL are 2.7-only; reference inputs are R2V-only.
 type TextToVideoParams struct {
 	Model                 string   `json:"model" help:"required; model slug"`
 	Prompt                string   `json:"prompt" help:"required; text prompt describing the video"`
@@ -89,31 +116,36 @@ type TextToVideoParams struct {
 	BackgroundAudioURL    string   `json:"background_audio_url,omitempty" help:"optional; background audio URL (2-7 only)"`
 }
 
-// ImageToVideoParams contains parameters for creating an image-to-video task.
+// ImageToVideoParams configures image-to-video generation.
+// Feature availability varies by generation: 2.2/2.5 treat Prompt as optional while 2.6+ require it;
+// LastFrameImageURL, SourceVideoURL, DrivingAudioURL, BackgroundAudioURL, and Watermark are 2.7-only;
+// Audio and MultiShots are flash-only.
 type ImageToVideoParams struct {
-	Model                 string   `json:"model" help:"required; model slug"`
-	Prompt                string   `json:"prompt,omitempty" help:"optional for 2-2/2-5 (required for 2-6/2-7); text prompt"`
-	CallbackURL           string   `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`
-	FirstFrameImageURL    string   `json:"first_frame_image_url,omitempty" help:"optional; first frame image URL"`
-	LastFrameImageURL     string   `json:"last_frame_image_url,omitempty" help:"optional; last frame image URL (2-7 only)"`
-	SourceVideoURL        string   `json:"source_video_url,omitempty" help:"optional; source video URL for continuation (2-7 only)"`
-	DurationSeconds       int      `json:"duration_seconds,omitempty" help:"optional; duration in seconds"`
-	OutputResolution      string   `json:"output_resolution,omitempty" help:"optional; output resolution"`
-	AspectRatio           string   `json:"aspect_ratio,omitempty" help:"optional; output aspect ratio"`
-	NegativePrompt        string   `json:"negative_prompt,omitempty" help:"optional; what to avoid (2-5, 2-7 only)"`
-	EnablePromptExpansion *bool    `json:"enable_prompt_expansion,omitempty" help:"optional; auto-expand prompt"`
-	Seed                  *int     `json:"seed,omitempty" help:"optional; random seed"`
-	Acceleration          string   `json:"acceleration,omitempty" help:"optional; acceleration mode"`
-	EnableSafetyChecker   *bool    `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
-	Watermark             *bool    `json:"watermark,omitempty" help:"optional; add watermark (2-7 only)"`
-	Audio                 *bool    `json:"audio,omitempty" help:"optional; generate audio (flash only)"`
-	MultiShots            *bool    `json:"multi_shots,omitempty" help:"optional; multi-shot mode (flash only)"`
-	DrivingAudioURL       string   `json:"driving_audio_url,omitempty" help:"optional; driving audio URL (2-7 only)"`
-	BackgroundAudioURL    string   `json:"background_audio_url,omitempty" help:"optional; background audio URL (2-7 only)"`
-	Ratio                 string   `json:"ratio,omitempty" help:"optional; alternative ratio format (2-7 only)"`
+	Model                 string `json:"model" help:"required; model slug"`
+	Prompt                string `json:"prompt,omitempty" help:"optional for 2-2/2-5 (required for 2-6/2-7); text prompt"`
+	CallbackURL           string `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`
+	FirstFrameImageURL    string `json:"first_frame_image_url,omitempty" help:"optional; first frame image URL"`
+	LastFrameImageURL     string `json:"last_frame_image_url,omitempty" help:"optional; last frame image URL (2-7 only)"`
+	SourceVideoURL        string `json:"source_video_url,omitempty" help:"optional; source video URL for continuation (2-7 only)"`
+	DurationSeconds       int    `json:"duration_seconds,omitempty" help:"optional; duration in seconds"`
+	OutputResolution      string `json:"output_resolution,omitempty" help:"optional; output resolution"`
+	AspectRatio           string `json:"aspect_ratio,omitempty" help:"optional; output aspect ratio"`
+	NegativePrompt        string `json:"negative_prompt,omitempty" help:"optional; what to avoid (2-5, 2-7 only)"`
+	EnablePromptExpansion *bool  `json:"enable_prompt_expansion,omitempty" help:"optional; auto-expand prompt"`
+	Seed                  *int   `json:"seed,omitempty" help:"optional; random seed"`
+	Acceleration          string `json:"acceleration,omitempty" help:"optional; acceleration mode"`
+	EnableSafetyChecker   *bool  `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
+	Watermark             *bool  `json:"watermark,omitempty" help:"optional; add watermark (2-7 only)"`
+	Audio                 *bool  `json:"audio,omitempty" help:"optional; generate audio (flash only)"`
+	MultiShots            *bool  `json:"multi_shots,omitempty" help:"optional; multi-shot mode (flash only)"`
+	DrivingAudioURL       string `json:"driving_audio_url,omitempty" help:"optional; driving audio URL (2-7 only)"`
+	BackgroundAudioURL    string `json:"background_audio_url,omitempty" help:"optional; background audio URL (2-7 only)"`
+	Ratio                 string `json:"ratio,omitempty" help:"optional; alternative ratio format (2-7 only)"`
 }
 
-// SpeechToVideoParams contains parameters for creating a speech-to-video task.
+// SpeechToVideoParams configures lip-sync video generation.
+// Drives a portrait image with speech audio to produce a talking-head video.
+// SourceImageURL and SourceAudioURL are both required.
 type SpeechToVideoParams struct {
 	Model               string   `json:"model" help:"required; model slug"`
 	SourceImageURL      string   `json:"source_image_url" help:"required; portrait source image URL"`
@@ -131,7 +163,10 @@ type SpeechToVideoParams struct {
 	EnableSafetyChecker *bool    `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
 }
 
-// AnimateParams contains parameters for creating an animate task.
+// AnimateParams configures motion-transfer animation.
+// Transfers motion from a reference video onto a subject in the source image.
+// Use wan-2.2-animate-move to preserve the subject and animate its motion, or
+// wan-2.2-animate-replace to replace the subject with the reference video's subject.
 type AnimateParams struct {
 	Model               string `json:"model" help:"required; model slug"`
 	SourceImageURL      string `json:"source_image_url" help:"required; character or subject image URL"`
@@ -141,13 +176,16 @@ type AnimateParams struct {
 	EnableSafetyChecker *bool  `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
 }
 
-// ColorPaletteItem defines a color swatch with hex and ratio.
+// ColorPaletteItem constrains image generation to a specific color.
+// Hex is a CSS hex code (e.g. "#FF0000"), Ratio is the proportion of the palette (0.0-1.0).
 type ColorPaletteItem struct {
 	Hex   string  `json:"hex" help:"required; hex color code e.g. #FF0000"`
 	Ratio float64 `json:"ratio,omitempty" help:"optional; proportion 0.0-1.0"`
 }
 
-// TextToImageParams contains parameters for creating an text-to-image task.
+// TextToImageParams configures text-to-image generation.
+// ThinkingMode enables enhanced prompt reasoning and is only available with the Pro model.
+// SourceImageURLs enables image editing mode where the prompt describes changes to apply.
 type TextToImageParams struct {
 	Model               string             `json:"model" help:"required; model slug"`
 	Prompt              string             `json:"prompt" help:"required; text prompt describing the image"`
@@ -165,7 +203,9 @@ type TextToImageParams struct {
 	BboxList            []interface{}      `json:"bbox_list,omitempty" help:"optional; bounding box constraints"`
 }
 
-// EditVideoParams contains parameters for creating an edit-video task.
+// EditVideoParams configures video editing with a text prompt.
+// The 2.6 models use SourceVideoURLs (plural, required) while 2.7 uses SourceVideoURL (singular, required).
+// Audio and MultiShots are flash-only features.
 type EditVideoParams struct {
 	Model                 string   `json:"model" help:"required; model slug"`
 	SourceVideoURL        string   `json:"source_video_url,omitempty" help:"optional; source video URL (2-7 only)"`

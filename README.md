@@ -97,6 +97,10 @@ Use the most specific wan video api variant page for pricing, rate limits, and c
 
 Default pricing link for the wan video api SDK: https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo
 
+## Generated file storage
+
+RunAPI-generated file URLs are temporary. Download and store generated images, videos, audio, or other files in your own durable storage within 7 days; do not treat returned URLs as long-term assets.
+
 ## FAQ
 
 ### Which package should I install for wan video api work?

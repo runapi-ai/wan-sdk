@@ -2,15 +2,33 @@
 
 module RunApi
   module Wan
-    class Client
-      attr_reader :text_to_video, :image_to_video,
-        :speech_to_video, :animate, :text_to_image, :edit_video
+    # Wan video and image generation API client.
+    #
+    # Spans multiple generation families (2.2 through 2.7) with progressive
+    # capability upgrades. Feature availability varies by model variant.
+    #
+    # @example
+    #   client = RunApi::Wan::Client.new(api_key: "your-api-key")
+    #   result = client.text_to_video.run(
+    #     model: "wan-2.6-text-to-video",
+    #     prompt: "A scenic mountain landscape with flowing rivers"
+    #   )
+    class Client < RunApi::Core::Client
+      # @return [Resources::TextToVideo] Generate videos from text prompts. Supports turbo (2.2) through 2.7 with progressive features.
+      attr_reader :text_to_video
+      # @return [Resources::ImageToVideo] Generate videos driven by a source image. Flash variants trade fidelity for speed.
+      attr_reader :image_to_video
+      # @return [Resources::SpeechToVideo] Generate lip-synced talking-head videos from a portrait image and speech audio.
+      attr_reader :speech_to_video
+      # @return [Resources::Animate] Transfer motion from a reference video onto a subject image (move or replace).
+      attr_reader :animate
+      # @return [Resources::TextToImage] Generate images with optional color palette, bounding box, and thinking mode.
+      attr_reader :text_to_image
+      # @return [Resources::EditVideo] Modify existing videos guided by text prompts and optional reference images.
+      attr_reader :edit_video
 
       def initialize(api_key: nil, **options)
-        @api_key = Core::Auth.resolve_api_key(api_key)
-
-        client_options = Core::ClientOptions.new(api_key: @api_key, **options)
-        http = client_options.http_client || Core::HttpClient.new(client_options)
+        super
 
         @text_to_video = Resources::TextToVideo.new(http)
         @image_to_video = Resources::ImageToVideo.new(http)
