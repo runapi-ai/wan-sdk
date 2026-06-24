@@ -46,12 +46,7 @@ module RunApi
         private
 
         def validate_params!(params)
-          raise Core::ValidationError, "model is required" unless param(params, :model)
-
-          model = param(params, :model)
-          unless Types::IMAGE_TO_VIDEO_MODELS.include?(model)
-            raise Core::ValidationError, "Invalid model: #{model}. Must be one of: #{Types::IMAGE_TO_VIDEO_MODELS.join(", ")}"
-          end
+          validate_contract!(CONTRACT["image-to-video"], params)
         end
       end
     end

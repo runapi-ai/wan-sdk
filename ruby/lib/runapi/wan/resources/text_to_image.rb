@@ -47,13 +47,8 @@ module RunApi
         private
 
         def validate_params!(params)
-          raise Core::ValidationError, "model is required" unless param(params, :model)
+          validate_contract!(CONTRACT["text-to-image"], params)
           raise Core::ValidationError, "prompt is required" unless param(params, :prompt)
-
-          model = param(params, :model)
-          unless Types::TEXT_TO_IMAGE_MODELS.include?(model)
-            raise Core::ValidationError, "Invalid model: #{model}. Must be one of: #{Types::TEXT_TO_IMAGE_MODELS.join(", ")}"
-          end
         end
       end
     end

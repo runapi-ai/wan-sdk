@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any
 
-from runapi.core import Resource, ValidationError
+from runapi.core import Resource
 
+from ..contract_gen import CONTRACT
 from ..types import (
-    SPEECH_TO_VIDEO_MODELS,
     CompletedVideoTaskResponse,
     VideoTaskResponse,
 )
@@ -43,7 +43,7 @@ class SpeechToVideo(Resource):
             The task creation result with an id.
         """
         compacted = self._compact_params(params)
-        self._validate_params(compacted)
+        self._validate_contract(CONTRACT["speech-to-video"], compacted)
         return self._request("post", self.ENDPOINT, body=compacted)
 
     def get(self, id: str) -> Any:
@@ -56,15 +56,3 @@ class SpeechToVideo(Resource):
             The current task status.
         """
         return self._request("get", f"{self.ENDPOINT}/{id}")
-
-    def _validate_params(self, params: Dict[str, Any]) -> None:
-        if not params.get("model"):
-            raise ValidationError("model is required")
-        if not params.get("source_image_url"):
-            raise ValidationError("source_image_url is required")
-        if not params.get("source_audio_url"):
-            raise ValidationError("source_audio_url is required")
-
-        model = params.get("model")
-        if model not in SPEECH_TO_VIDEO_MODELS:
-            raise ValidationError(f"Invalid model: {model}. Must be one of: {', '.join(SPEECH_TO_VIDEO_MODELS)}")

@@ -105,9 +105,17 @@ def test_get_fetches_by_id():
 def test_image_to_video_posts_to_endpoint():
     fake = FakeHttp({"id": "t1", "status": "pending"})
     client = WanClient(api_key="k", http_client=fake)
-    client.image_to_video.create(model="wan-2.6-image-to-video", source_image_url="https://x/a.png")
+    client.image_to_video.create(
+        model="wan-2.6-image-to-video",
+        first_frame_image_url="https://x/a.png",
+        prompt="make it move",
+    )
     assert fake.calls == [
-        ("post", "/api/v1/wan/image_to_video", {"model": "wan-2.6-image-to-video", "source_image_url": "https://x/a.png"}),
+        (
+            "post",
+            "/api/v1/wan/image_to_video",
+            {"model": "wan-2.6-image-to-video", "first_frame_image_url": "https://x/a.png", "prompt": "make it move"},
+        ),
     ]
 
 
@@ -136,7 +144,7 @@ def test_run_narrows_completed_type():
 
 def test_rejects_unknown_model():
     client = WanClient(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="Invalid model"):
+    with pytest.raises(ValidationError, match="model must be one of"):
         client.text_to_video.create(model="nope", prompt="hi there")
 
 
@@ -148,19 +156,23 @@ def test_requires_prompt():
 
 def test_animate_requires_source_and_reference():
     client = WanClient(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="source_image_url is required"):
-        client.animate.create(model="wan-2.2-animate-move")
     with pytest.raises(ValidationError, match="reference_video_url is required"):
-        client.animate.create(model="wan-2.2-animate-move", source_image_url="https://x/a.png")
+        client.animate.create(model="wan-2.2-animate-move")
+    with pytest.raises(ValidationError, match="source_image_url is required"):
+        client.animate.create(model="wan-2.2-animate-move", reference_video_url="https://x/v.mp4")
 
 
 def test_speech_to_video_requires_image_and_audio():
     client = WanClient(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="source_image_url is required"):
-        client.speech_to_video.create(model="wan-2.2-a14b-speech-to-video-turbo")
     with pytest.raises(ValidationError, match="source_audio_url is required"):
         client.speech_to_video.create(
-            model="wan-2.2-a14b-speech-to-video-turbo", source_image_url="https://x/a.png"
+            model="wan-2.2-a14b-speech-to-video-turbo", prompt="say hi"
+        )
+    with pytest.raises(ValidationError, match="source_image_url is required"):
+        client.speech_to_video.create(
+            model="wan-2.2-a14b-speech-to-video-turbo",
+            prompt="say hi",
+            source_audio_url="https://x/a.mp3",
         )
 
 

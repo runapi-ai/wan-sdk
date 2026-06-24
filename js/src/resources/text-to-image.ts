@@ -1,6 +1,7 @@
-import type { HttpClient, PollingOptions, RequestOptions } from '@runapi.ai/core';
-import { compactParams } from '@runapi.ai/core';
+import type { HttpClient, PollingOptions, RequestOptions, ActionSchema } from '@runapi.ai/core';
+import { compactParams, validateParams } from '@runapi.ai/core';
 import { pollUntilComplete } from '@runapi.ai/core/internal';
+import { contract } from '../contract_gen';
 import type { CompletedImageTaskResponse, TextToImageParams, ImageTaskResponse } from '../types';
 
 const ENDPOINT = '/api/v1/wan/text_to_image';
@@ -31,8 +32,10 @@ export class TextToImage {
    * @returns The task creation result.
    */
   async create(params: TextToImageParams, options?: RequestOptions): Promise<{ id: string }> {
+    const body = compactParams(params);
+    validateParams(contract['text-to-image'] as ActionSchema, body as Record<string, unknown>);
     return this.http.request<{ id: string }>('POST', ENDPOINT, {
-      body: compactParams(params),
+      body,
       ...options,
     });
   }

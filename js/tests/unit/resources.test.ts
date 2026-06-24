@@ -196,6 +196,7 @@ describe('Wan resources', () => {
 
     await speechToVideo.create({
       model: 'wan-2.2-a14b-speech-to-video-turbo',
+      prompt: 'Speak naturally',
       source_image_url: 'https://cdn.runapi.ai/public/samples/face.jpg',
       source_audio_url: 'https://cdn.runapi.ai/public/samples/speech.mp3',
       output_resolution: '720p',
@@ -204,6 +205,7 @@ describe('Wan resources', () => {
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/speech_to_video', {
       body: {
         model: 'wan-2.2-a14b-speech-to-video-turbo',
+        prompt: 'Speak naturally',
         source_image_url: 'https://cdn.runapi.ai/public/samples/face.jpg',
         source_audio_url: 'https://cdn.runapi.ai/public/samples/speech.mp3',
         output_resolution: '720p',

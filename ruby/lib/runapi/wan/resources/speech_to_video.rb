@@ -46,14 +46,7 @@ module RunApi
         private
 
         def validate_params!(params)
-          raise Core::ValidationError, "model is required" unless param(params, :model)
-          raise Core::ValidationError, "source_image_url is required" unless param(params, :source_image_url)
-          raise Core::ValidationError, "source_audio_url is required" unless param(params, :source_audio_url)
-
-          model = param(params, :model)
-          unless Types::SPEECH_TO_VIDEO_MODELS.include?(model)
-            raise Core::ValidationError, "Invalid model: #{model}. Must be one of: #{Types::SPEECH_TO_VIDEO_MODELS.join(", ")}"
-          end
+          validate_contract!(CONTRACT["speech-to-video"], params)
         end
       end
     end

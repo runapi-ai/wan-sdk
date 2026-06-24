@@ -72,7 +72,11 @@ type TextToVideo struct{ http core.HTTPClient }
 // Create submits a text-to-video generation task and returns immediately with the task ID.
 func (r *TextToVideo) Create(ctx context.Context, params TextToVideoParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, textToVideoPath, core.CompactParams(params), requestOptions)
+	body := core.CompactParams(params)
+	if err := core.ValidateParams(contractSchema["text-to-video"], body); err != nil {
+		return nil, err
+	}
+	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, textToVideoPath, body, requestOptions)
 }
 
 // Get retrieves the current status and result of a text-to-video task.
@@ -93,7 +97,11 @@ type ImageToVideo struct{ http core.HTTPClient }
 // Create submits an image-to-video generation task and returns immediately with the task ID.
 func (r *ImageToVideo) Create(ctx context.Context, params ImageToVideoParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, imageToVideoPath, core.CompactParams(params), requestOptions)
+	body := core.CompactParams(params)
+	if err := core.ValidateParams(contractSchema["image-to-video"], body); err != nil {
+		return nil, err
+	}
+	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, imageToVideoPath, body, requestOptions)
 }
 
 // Get retrieves the current status and result of an image-to-video task.
@@ -114,7 +122,11 @@ type SpeechToVideo struct{ http core.HTTPClient }
 // Create submits a speech-to-video lip-sync task and returns immediately with the task ID.
 func (r *SpeechToVideo) Create(ctx context.Context, params SpeechToVideoParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, speechToVideoPath, core.CompactParams(params), requestOptions)
+	body := core.CompactParams(params)
+	if err := core.ValidateParams(contractSchema["speech-to-video"], body); err != nil {
+		return nil, err
+	}
+	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, speechToVideoPath, body, requestOptions)
 }
 
 // Get retrieves the current status and result of a speech-to-video task.
@@ -137,7 +149,11 @@ type Animate struct{ http core.HTTPClient }
 // Create submits a motion-transfer animation task and returns immediately with the task ID.
 func (r *Animate) Create(ctx context.Context, params AnimateParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, animatePath, core.CompactParams(params), requestOptions)
+	body := core.CompactParams(params)
+	if err := core.ValidateParams(contractSchema["animate"], body); err != nil {
+		return nil, err
+	}
+	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, animatePath, body, requestOptions)
 }
 
 // Get retrieves the current status and result of an animation task.
@@ -159,7 +175,11 @@ type TextToImage struct{ http core.HTTPClient }
 // Create submits a text-to-image generation task and returns immediately with the task ID.
 func (r *TextToImage) Create(ctx context.Context, params TextToImageParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, textToImagePath, core.CompactParams(params), requestOptions)
+	body := core.CompactParams(params)
+	if err := core.ValidateParams(contractSchema["text-to-image"], body); err != nil {
+		return nil, err
+	}
+	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, textToImagePath, body, requestOptions)
 }
 
 // Get retrieves the current status and result of a text-to-image task.
@@ -181,7 +201,11 @@ type EditVideo struct{ http core.HTTPClient }
 // Create submits a video editing task and returns immediately with the task ID.
 func (r *EditVideo) Create(ctx context.Context, params EditVideoParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
-	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, editVideoPath, core.CompactParams(params), requestOptions)
+	body := core.CompactParams(params)
+	if err := core.ValidateParams(contractSchema["edit-video"], body); err != nil {
+		return nil, err
+	}
+	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, editVideoPath, body, requestOptions)
 }
 
 // Get retrieves the current status and result of a video editing task.

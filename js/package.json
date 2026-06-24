@@ -1,7 +1,10 @@
 {
   "name": "@runapi.ai/wan",
+  "runapi": {
+    "slug": "wan"
+  },
   "version": "0.2.7",
-  "description": "RunAPI Wan SDK for JavaScript, Ruby, and Go",
+  "description": "RunAPI Wan SDK for text-to-video, image-to-video, speech-to-video, animation, text-to-image, and edit-video workflows in JavaScript, Python, Ruby, Go, and Java",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -48,7 +51,15 @@
     "sdk",
     "typescript",
     "ruby",
-    "golang"
+    "golang",
+    "java",
+    "python",
+    "maven",
+    "gradle",
+    "video-generation",
+    "text-to-video",
+    "video-api",
+    "wan-video-api"
   ],
   "author": "RunAPI",
   "license": "Apache-2.0",

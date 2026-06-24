@@ -47,13 +47,8 @@ module RunApi
         private
 
         def validate_params!(params)
-          raise Core::ValidationError, "model is required" unless param(params, :model)
+          validate_contract!(CONTRACT["text-to-video"], params)
           raise Core::ValidationError, "prompt is required" unless param(params, :prompt)
-
-          model = param(params, :model)
-          unless Types::TEXT_TO_VIDEO_MODELS.include?(model)
-            raise Core::ValidationError, "Invalid model: #{model}. Must be one of: #{Types::TEXT_TO_VIDEO_MODELS.join(", ")}"
-          end
         end
       end
     end

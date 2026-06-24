@@ -47,14 +47,7 @@ module RunApi
         private
 
         def validate_params!(params)
-          raise Core::ValidationError, "model is required" unless param(params, :model)
-          raise Core::ValidationError, "source_image_url is required" unless param(params, :source_image_url)
-          raise Core::ValidationError, "reference_video_url is required" unless param(params, :reference_video_url)
-
-          model = param(params, :model)
-          unless Types::ANIMATE_MODELS.include?(model)
-            raise Core::ValidationError, "Invalid model: #{model}. Must be one of: #{Types::ANIMATE_MODELS.join(", ")}"
-          end
+          validate_contract!(CONTRACT["animate"], params)
         end
       end
     end

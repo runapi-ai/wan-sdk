@@ -182,6 +182,7 @@ func TestSpeechToVideoCreate(t *testing.T) {
 	client := NewClientWithHTTP(stub)
 	resp, err := client.SpeechToVideo.Create(context.Background(), SpeechToVideoParams{
 		Model:            "wan-2.2-a14b-speech-to-video-turbo",
+		Prompt:           "speak naturally",
 		SourceImageURL:   "https://cdn.runapi.ai/public/samples/face.jpg",
 		SourceAudioURL:   "https://cdn.runapi.ai/public/samples/speech.mp3",
 		OutputResolution: "720p",

@@ -7,61 +7,105 @@
 </h3>
 
 <p align="center">
-  Wan API SDKs for JavaScript, Ruby, and Go on RunAPI.
+  Wan API SDKs for JavaScript, Python, Ruby, Go, and Java on RunAPI.
 </p>
 
 <div align="center">
 
 [![npm](https://img.shields.io/npm/v/@runapi.ai/wan)](https://www.npmjs.com/package/@runapi.ai/wan)
+[![PyPI](https://img.shields.io/pypi/v/runapi-wan)](https://pypi.org/project/runapi-wan/)
 [![RubyGems](https://img.shields.io/gem/v/runapi-wan)](https://rubygems.org/gems/runapi-wan)
 [![Go Reference](https://pkg.go.dev/badge/github.com/runapi-ai/wan-sdk/go.svg)](https://pkg.go.dev/github.com/runapi-ai/wan-sdk/go)
+[![Maven Central](https://img.shields.io/maven-central/v/ai.runapi/runapi-wan)](https://central.sonatype.com/artifact/ai.runapi/runapi-wan)
 [![License](https://img.shields.io/github/license/runapi-ai/wan-sdk)](https://github.com/runapi-ai/wan-sdk/blob/main/LICENSE)
 
 </div>
 <br/>
 
-The wan video api SDK packages JavaScript, Ruby, and Go clients for Wan on RunAPI. Use this wan video api SDK for text-to-video, image-to-video, animation, and video editing workflows that need typed installs, JSON request bodies, task polling, and consistent RunAPI errors across services.
+The Wan API SDK packages JavaScript, Python, Ruby, Go, and Java clients for Wan on RunAPI. Use it for text-to-video, image-to-video, speech-to-video, animation, text-to-image, and edit-video workflows when your app needs typed request builders, predictable task polling, file upload helpers, account helpers, and consistent RunAPI errors.
 
-Wan belongs to the Alibaba catalog on RunAPI. The public model page is https://runapi.ai/models/wan; variant pages below carry pricing, rate-limit, and commercial-usage details. The public `wan-sdk` repository groups the JavaScript, Ruby, and Go packages for this model.
+Wan is listed in the RunAPI model catalog at https://runapi.ai/models/wan. Variant pages below carry pricing, rate-limit, and commercial-usage details. The public `wan-sdk` repository groups the language packages, examples, CI, and release tags for this model.
 
 ## Install
 
 ```bash
 npm install @runapi.ai/wan
+pip install runapi-wan
 gem install runapi-wan
 go get github.com/runapi-ai/wan-sdk/go@latest
 ```
 
-## What you can build
+Gradle:
 
-- Build marketing clips, storyboard previews, creator tools, and agent video pipelines with the wan video api SDK.
-- Keep one model-specific repository while installing only the language package your app needs.
-- Use `create` for submit-only jobs, `get` for status lookup, and `run` for submit-and-poll scripts.
-- Handle authentication, validation, rate limits, insufficient credits, task failures, and polling timeouts through RunAPI SDK errors.
-
-The JavaScript client exposes text-to-video, image-to-video, speech-to-video, animation, image, and video-edit resources, and the Ruby and Go packages mirror the same RunAPI task lifecycle.
-
-## JavaScript quick start
-
-```typescript
-import { WanClient } from '@runapi.ai/wan';
-
-const client = new WanClient();
-
-const task = await client.textToVideo.create({
-  // Pass the Wan request body documented at https://runapi.ai/docs#wan.
-});
-
-const status = await client.textToVideo.get(task.id);
+```kotlin
+dependencies {
+  implementation("ai.runapi:runapi-wan:0.1.0")
+}
 ```
 
-For short scripts, use `run` with the same JSON body to create the task and wait for completion. For web request handlers, prefer `create` plus webhook or later `get` polling so the server does not hold a worker open.
+Maven:
+
+```xml
+<dependency>
+  <groupId>ai.runapi</groupId>
+  <artifactId>runapi-wan</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
+
+Use the Java BOM when installing multiple RunAPI Java modules:
+
+```kotlin
+dependencies {
+  implementation(platform("ai.runapi:runapi-bom:0.1.0"))
+  implementation("ai.runapi:runapi-wan")
+}
+```
+
+## What you can build
+
+- Build apps, agent workflows, batch jobs, and production services around Wan requests.
+- Install only the language package your app needs while keeping one model-specific repository for docs and releases.
+- Use `create` for submit-only jobs, `get` for status lookup, and `run` for submit-and-poll scripts.
+- Upload local files, URL files, or base64 files through shared RunAPI file helpers.
+- Handle validation, authentication, rate limits, insufficient credits, task failures, and polling timeouts through RunAPI SDK errors.
+
+## Java quick start
+
+```java
+import ai.runapi.wan.WanClient;
+import ai.runapi.wan.types.TextToVideoParams;
+import ai.runapi.wan.types.CompletedTextToVideoResponse;
+import ai.runapi.wan.types.TextToVideoModel;
+
+WanClient client = WanClient.builder()
+    .apiKey(System.getenv("RUNAPI_API_KEY"))
+    .build();
+
+CompletedTextToVideoResponse result = client.textToVideo().run(
+    TextToVideoParams.builder()
+        .model(TextToVideoModel.WAN_2_6_TEXT_TO_VIDEO)
+        .prompt("A scenic mountain landscape with flowing rivers")
+        .outputResolution("1080p")
+        .aspectRatio("16:9")
+        .durationSeconds(5)
+        .build()
+);
+```
+
+Java packages target Java 8 bytecode and are tested on Java 8, 11, 17, and 21. Each model artifact depends on `ai.runapi:runapi-core`, so application code normally installs only `ai.runapi:runapi-wan`.
+
+## Task lifecycle
+
+Most media endpoints are asynchronous. `create()` submits a task and returns its id, `get(id)` fetches the latest task state, and `run(params)` creates the task and polls until it reaches a terminal state. In web request handlers, prefer `create()` plus webhook or later `get()` polling so the server does not hold a worker open.
 
 ## Repository layout
 
 - `js/` publishes `@runapi.ai/wan`.
-- `ruby/` publishes `runapi-wan` when RubyGems publishing resumes.
-- `go/` publishes `github.com/runapi-ai/wan-sdk/go` and depends on `github.com/runapi-ai/core-sdk/go`.
+- `python/` publishes `runapi-wan`.
+- `ruby/` publishes `runapi-wan`.
+- `go/` publishes `github.com/runapi-ai/wan-sdk/go`.
+- `java/` publishes `ai.runapi:runapi-wan` and uses `ai.runapi:runapi-core`.
 
 ## Public links
 
@@ -75,7 +119,7 @@ For short scripts, use `run` with the same JSON body to create the task and wait
 
 ## Pricing and variants
 
-Use the most specific wan video api variant page for pricing, rate limits, and commercial usage:
+Use the most specific Wan variant page for pricing, rate limits, and commercial usage:
 - [2.2 A14B text to video turbo](https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo)
 - [2.2 A14B image to video turbo](https://runapi.ai/models/wan/2.2-a14b-image-to-video-turbo)
 - [2.2 A14B speech to video turbo](https://runapi.ai/models/wan/2.2-a14b-speech-to-video-turbo)
@@ -95,21 +139,21 @@ Use the most specific wan video api variant page for pricing, rate limits, and c
 - [2.7 R2V text to video](https://runapi.ai/models/wan/2.7-r2v)
 - [2.7 video edit](https://runapi.ai/models/wan/2.7-edit-video)
 
-Default pricing link for the wan video api SDK: https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo
+Default pricing link for the Wan SDK: https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo
 
-## Generated file storage
+## File storage
 
 RunAPI-generated file URLs are temporary. Download and store generated images, videos, audio, or other files in your own durable storage within 7 days; do not treat returned URLs as long-term assets.
 
 ## FAQ
 
-### Which package should I install for wan video api work?
+### Which package should I install for Wan work?
 
-Install the model package for your language: `@runapi.ai/wan`, `runapi-wan`, or `github.com/runapi-ai/wan-sdk/go`. Install core SDK packages only when you are building shared SDK infrastructure.
+Install the model package for your language: `@runapi.ai/wan` on npm, `runapi-wan` on PyPI, `runapi-wan` on RubyGems, `github.com/runapi-ai/wan-sdk/go`, or `ai.runapi:runapi-wan`. Install core SDK packages only when you are building shared SDK infrastructure.
 
 ### Where should public links point?
 
-Primary wan video api links point to https://runapi.ai/models/wan. Pricing and usage-policy links point to variant pages such as https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo. Provider comparisons point to https://runapi.ai/providers/alibaba, and broad browsing points to https://runapi.ai/models.
+Primary Wan links point to https://runapi.ai/models/wan. Pricing and usage-policy links point to variant pages such as https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo. Provider comparisons point to https://runapi.ai/providers/alibaba, and broad browsing points to https://runapi.ai/models.
 
 ## License
 
