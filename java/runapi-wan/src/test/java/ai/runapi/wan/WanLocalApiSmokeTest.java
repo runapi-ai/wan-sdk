@@ -71,7 +71,7 @@ class WanLocalApiSmokeTest {
     assertEquals("POST", create.method);
     assertEquals("/api/v1/wan/text_to_image", create.path);
     assertEquals("Bearer sk-test", create.header("Authorization"));
-    assertEquals("runapi-sdk-java/0.1.0", create.header("User-Agent"));
+    assertEquals("runapi-sdk-java/0.1.1", create.header("User-Agent"));
     JsonNode body = Json.mapper().readTree(create.body);
     assertEquals("wan-2.7-image", body.get("model").asText());
     assertEquals("A small paper lantern on a desk", body.get("prompt").asText());
