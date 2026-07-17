@@ -1,8 +1,8 @@
-# Wan Video API Go SDK for RunAPI
+# Wan API Go SDK for RunAPI
 
-The wan video api Go SDK is the language-specific package for Wan on RunAPI. Use this wan video api package for text-to-video, image-to-video, animation, and video editing flows when your application needs JSON request bodies, task status lookup, and consistent RunAPI errors in Go.
+The Wan Go SDK is the language-specific package for Wan on RunAPI. Use this package for video generation, animation, and video editing workflows when your application needs request bodies, task status lookup, and consistent RunAPI errors in Go.
 
-This wan video api README is the Go package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs#wan; for SDK docs, use https://runapi.ai/docs#sdk-wan.
+This README is the Go package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs#wan; for SDK docs, use https://runapi.ai/docs#sdk-wan.
 
 ## Install
 
@@ -32,7 +32,7 @@ RunAPI-generated file URLs are temporary. Download and store generated images, v
 
 ## Language notes
 
-Use the public Go module with `github.com/runapi-ai/core-sdk/go` options when building video services, CLIs, or workers. The available resources include text to videos, image to videos, speech to videos, animations, images, and video edits. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
+Use the public Go module with `github.com/runapi-ai/core-sdk/go` options when building video services, CLIs, or workers. The available resources are `TextToVideo`, `ImageToVideo`, `SpeechToVideo`, `Animate`, `TextToImage`, and `EditVideo`. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
 
 ## Links
 

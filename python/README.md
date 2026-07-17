@@ -1,8 +1,8 @@
-# Wan Video API Python SDK for RunAPI
+# Wan API Python SDK for RunAPI
 
-The wan video api Python SDK is the language-specific package for Wan on RunAPI. Use this wan video api package for text-to-video, image-to-video, animation, and video editing flows when your application needs JSON request bodies, task status lookup, and consistent RunAPI errors in Python.
+The Wan Python SDK is the language-specific package for Wan on RunAPI. Use this package for video generation, animation, and video editing workflows when your application needs request bodies, task status lookup, and consistent RunAPI errors in Python.
 
-This wan video api README is the Python package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs#wan; for SDK docs, use https://runapi.ai/docs#sdk-wan.
+This README is the Python package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs#wan; for SDK docs, use https://runapi.ai/docs#sdk-wan.
 
 ## Install
 

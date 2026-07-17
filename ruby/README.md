@@ -1,8 +1,8 @@
-# Wan Video API Ruby SDK for RunAPI
+# Wan API Ruby SDK for RunAPI
 
-The wan video api Ruby SDK is the language-specific package for Wan on RunAPI. Use this wan video api package for text-to-video, image-to-video, animation, and video editing flows when your application needs JSON request bodies, task status lookup, and consistent RunAPI errors in Ruby.
+The Wan Ruby SDK is the language-specific package for Wan on RunAPI. Use this package for video generation, animation, and video editing workflows when your application needs request bodies, task status lookup, and consistent RunAPI errors in Ruby.
 
-This wan video api README is the Ruby package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs#wan; for SDK docs, use https://runapi.ai/docs#sdk-wan.
+This README is the Ruby package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs#wan; for SDK docs, use https://runapi.ai/docs#sdk-wan.
 
 ## Install
 
@@ -13,7 +13,7 @@ gem install runapi-wan
 ## Quick start
 
 ```ruby
-require "runapi-wan"
+require "runapi/wan"
 
 client = RunApi::Wan::Client.new
 task = client.text_to_video.create(
@@ -28,7 +28,7 @@ RunAPI-generated file URLs are temporary. Download and store generated images, v
 
 ## Language notes
 
-Use Ruby keyword arguments and the `RunApi::Wan` error classes when building video jobs, Rails workers, or scripts. The available resources include text to videos, image to videos, speech to videos, animations, images, and video edits. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
+Use Ruby keyword arguments and the `RunApi::Wan` error classes when building video jobs, Rails workers, or scripts. The available resources are `text_to_video`, `image_to_video`, `speech_to_video`, `animate`, `text_to_image`, and `edit_video`. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
 
 ## Links
 

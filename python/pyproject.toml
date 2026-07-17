@@ -5,26 +5,25 @@ build-backend = "hatchling.build"
 [project]
 name = "runapi-wan"
 version = "0.1.0"
-description = "Wan video and text-to-image client for RunAPI"
+description = "RunAPI Wan SDK for text-to-video, image-to-video, speech-to-video, animation, text-to-image, and edit-video workflows in JavaScript, Python, Ruby, Go, Java, and PHP"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "Apache-2.0"
 authors = [{ name = "RunAPI", email = "contact@runapi.ai" }]
-keywords = ["runapi", "wan", "text-to-video", "image-to-video", "text-to-image", "ai", "sdk"]
-dependencies = ["runapi-core"]
+keywords = ["runapi", "runapi-ai", "wan", "api", "sdk", "typescript", "python", "ruby", "golang", "java", "maven", "gradle", "video-generation", "text-to-video", "video-api", "wan-video-api"]
+dependencies = ["runapi-core>=0.1.4"]
 
 [project.urls]
 Homepage = "https://runapi.ai/models/wan"
 Documentation = "https://runapi.ai/docs#sdk-wan"
+Source = "https://github.com/runapi-ai/wan-sdk"
+Issues = "https://github.com/runapi-ai/wan-sdk/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/runapi"]
 
 [tool.uv]
 package = true
-
-[tool.uv.sources]
-runapi-core = { workspace = true }
 
 [dependency-groups]
 dev = ["pytest>=8"]

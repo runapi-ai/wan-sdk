@@ -36,6 +36,7 @@ Generate and edit video with Wan through RunAPI. The default path for one-off ag
 When integrating Wan into an app, backend, worker, library, Rails service, Node service, Go service, webhook pipeline, or production workflow, start by checking the current SDK package and official usage. Confirm install commands, client methods (`create`, `get`, `run`), request fields, response shape, and error classes before using CLI help or raw HTTP examples. Use a RunAPI SDK package:
 
 - JavaScript / TypeScript: `@runapi.ai/wan`
+- PHP: `runapi-ai/wan`
 - Ruby: `runapi-wan`
 - Go: `github.com/runapi-ai/wan-sdk/go`
 
