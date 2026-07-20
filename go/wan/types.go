@@ -109,7 +109,7 @@ type TextToVideoParams struct {
 	FirstFrameImageURL    string   `json:"first_frame_image_url,omitempty" help:"optional; first frame image URL (r2v only)"`
 	ReferenceAudioURL     string   `json:"reference_audio_url,omitempty" help:"optional; reference audio URL (r2v only)"`
 	EnablePromptExpansion *bool    `json:"enable_prompt_expansion,omitempty" help:"optional; auto-expand prompt"`
-	Seed                  *int     `json:"seed,omitempty" help:"optional; random seed for reproducibility"`
+	Seed                  *int     `json:"seed,omitempty" help:"optional; random seed; unsupported by wan-2.6-text-to-video"`
 	Acceleration          string   `json:"acceleration,omitempty" help:"optional; acceleration mode"`
 	EnableSafetyChecker   *bool    `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
 	Watermark             *bool    `json:"watermark,omitempty" help:"optional; add watermark (2-7 only)"`
@@ -132,7 +132,7 @@ type ImageToVideoParams struct {
 	AspectRatio           string `json:"aspect_ratio,omitempty" help:"optional; output aspect ratio"`
 	NegativePrompt        string `json:"negative_prompt,omitempty" help:"optional; what to avoid (2-5, 2-7 only)"`
 	EnablePromptExpansion *bool  `json:"enable_prompt_expansion,omitempty" help:"optional; auto-expand prompt"`
-	Seed                  *int   `json:"seed,omitempty" help:"optional; random seed"`
+	Seed                  *int   `json:"seed,omitempty" help:"optional; random seed; unsupported by wan-2.6 image-to-video models"`
 	Acceleration          string `json:"acceleration,omitempty" help:"optional; acceleration mode"`
 	EnableSafetyChecker   *bool  `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
 	Watermark             *bool  `json:"watermark,omitempty" help:"optional; add watermark (2-7 only)"`

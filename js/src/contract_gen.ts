@@ -168,9 +168,6 @@ export const contract = {
         },
         "prompt": {
           "required": true
-        },
-        "seed": {
-          "type": "integer"
         }
       },
       "wan-2.6-image-to-video": {
@@ -188,9 +185,6 @@ export const contract = {
         },
         "prompt": {
           "required": true
-        },
-        "seed": {
-          "type": "integer"
         }
       },
       "wan-2.7-image-to-video": {
@@ -210,7 +204,25 @@ export const contract = {
           "type": "integer"
         }
       }
-    }
+    },
+    "rules": [
+      {
+        "when": {
+          "model": "wan-2.6-flash-image-to-video"
+        },
+        "forbidden": [
+          "seed"
+        ]
+      },
+      {
+        "when": {
+          "model": "wan-2.6-image-to-video"
+        },
+        "forbidden": [
+          "seed"
+        ]
+      }
+    ]
   },
   "speech-to-video": {
     "models": [
@@ -358,9 +370,6 @@ export const contract = {
             "720p",
             "1080p"
           ]
-        },
-        "seed": {
-          "type": "integer"
         }
       },
       "wan-2.7-r2v": {
@@ -402,6 +411,16 @@ export const contract = {
           "type": "integer"
         }
       }
-    }
+    },
+    "rules": [
+      {
+        "when": {
+          "model": "wan-2.6-text-to-video"
+        },
+        "forbidden": [
+          "seed"
+        ]
+      }
+    ]
   }
 } as const;

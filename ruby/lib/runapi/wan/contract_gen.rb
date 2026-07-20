@@ -130,9 +130,6 @@ module RunApi
             },
             "prompt" => {
               "required" => true
-            },
-            "seed" => {
-              "type" => "integer"
             }
           },
           "wan-2.6-image-to-video" => {
@@ -147,9 +144,6 @@ module RunApi
             },
             "prompt" => {
               "required" => true
-            },
-            "seed" => {
-              "type" => "integer"
             }
           },
           "wan-2.7-image-to-video" => {
@@ -166,7 +160,18 @@ module RunApi
               "type" => "integer"
             }
           }
-        }
+        },
+        "rules" => [{
+          "when" => {
+            "model" => "wan-2.6-flash-image-to-video"
+          },
+          "forbidden" => ["seed"]
+        }, {
+          "when" => {
+            "model" => "wan-2.6-image-to-video"
+          },
+          "forbidden" => ["seed"]
+        }]
       },
       "speech-to-video" => {
         "models" => ["wan-2.2-a14b-speech-to-video-turbo"],
@@ -263,9 +268,6 @@ module RunApi
             },
             "output_resolution" => {
               "enum" => ["720p", "1080p"]
-            },
-            "seed" => {
-              "type" => "integer"
             }
           },
           "wan-2.7-r2v" => {
@@ -295,7 +297,13 @@ module RunApi
               "type" => "integer"
             }
           }
-        }
+        },
+        "rules" => [{
+          "when" => {
+            "model" => "wan-2.6-text-to-video"
+          },
+          "forbidden" => ["seed"]
+        }]
       }
     }.freeze
   end

@@ -210,7 +210,7 @@ public final class TextToVideoParams {
       return this;
     }
 
-    /** Sets the random seed. */
+    /** Sets the random seed; unsupported by wan-2.6-text-to-video. */
     public Builder seed(int value) {
       this.seed = value;
       return this;

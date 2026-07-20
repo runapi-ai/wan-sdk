@@ -129,7 +129,7 @@ export interface TextToVideoParams {
   reference_audio_url?: string;
   /** Auto-expand prompt with additional detail. */
   enable_prompt_expansion?: boolean;
-  /** Random seed for reproducible results. */
+  /** Random seed for reproducible results. Not supported by wan-2.6-text-to-video. */
   seed?: number;
   acceleration?: string;
   /** Toggle content safety filtering. */
@@ -167,7 +167,7 @@ export interface ImageToVideoParams {
   negative_prompt?: string;
   /** Auto-expand prompt with additional detail. */
   enable_prompt_expansion?: boolean;
-  /** Random seed for reproducible results. */
+  /** Random seed for reproducible results. Not supported by wan-2.6 image-to-video models. */
   seed?: number;
   acceleration?: string;
   /** Toggle content safety filtering. */

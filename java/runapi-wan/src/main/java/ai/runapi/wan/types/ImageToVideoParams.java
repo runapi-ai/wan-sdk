@@ -188,7 +188,7 @@ public final class ImageToVideoParams {
       return this;
     }
 
-    /** Sets the random seed. */
+    /** Sets the random seed; unsupported by wan-2.6 image-to-video models. */
     public Builder seed(int value) {
       this.seed = value;
       return this;
