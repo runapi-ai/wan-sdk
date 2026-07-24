@@ -54,7 +54,7 @@ import org.junit.jupiter.api.Test;
 class WanClientTest {
   @Test
   void builderCreatesClientAndUniversalResources() {
-    WanClient client = WanClient.builder().apiKey("sk-test").baseUrl(URI.create("https://api.runapi.ai")).build();
+    WanClient client = WanClient.builder().apiKey("sk-test").baseUrl(URI.create("https://runapi.ai")).build();
 
     assertNotNull(client.textToVideo());
     assertNotNull(client.imageToVideo());
