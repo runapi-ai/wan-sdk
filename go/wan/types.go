@@ -1,6 +1,8 @@
 // Package wan provides the Wan video and image generation API client.
 package wan
 
+import "github.com/runapi-ai/core-sdk/go/core"
+
 // TextToVideoModel selects the Wan text-to-video engine variant.
 // Generations range from 2.2 (turbo, fast at lower resolution) through
 // 2.7 (highest quality, supports negative prompts and watermark control).
@@ -69,6 +71,7 @@ type Image struct {
 // AsyncTaskResponse carries the task ID, lifecycle status, and any error message
 // for all Wan async operations. Embed this in endpoint-specific responses.
 type AsyncTaskResponse struct {
+	core.TaskBillingFacts
 	ID     string `json:"id"`
 	Status string `json:"status"`
 	Error  string `json:"error,omitempty"`

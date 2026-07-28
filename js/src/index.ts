@@ -6,6 +6,7 @@ export type {
   WanAnimateModel,
   WanTextToImageModel,
   WanEditVideoModel,
+  TaskCreateResponse,
   Video,
   Image,
   VideoTaskResponse,
