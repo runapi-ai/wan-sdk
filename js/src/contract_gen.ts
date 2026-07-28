@@ -155,6 +155,11 @@ export const contract = {
           "required": true
         },
         "duration_seconds": {
+          "enum": [
+            5,
+            10,
+            15
+          ],
           "type": "integer"
         },
         "first_frame_image_url": {

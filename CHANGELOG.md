@@ -1,5 +1,11 @@
 # Changelog
 
+## [js/v0.3.1](https://github.com/runapi-ai/wan-sdk/releases/tag/js%2Fv0.3.1), [ruby/v0.2.10](https://github.com/runapi-ai/wan-sdk/releases/tag/ruby%2Fv0.2.10), [go/v0.2.11](https://github.com/runapi-ai/wan-sdk/releases/tag/go%2Fv0.2.11), [python/v0.2.1](https://github.com/runapi-ai/wan-sdk/releases/tag/python%2Fv0.2.1) - 2026-07-28
+
+### Fixed
+- Validate supported duration values for Wan Flash image-to-video requests; the API applies documented duration and resolution defaults when callers omit them.
+
+
 ## [go/v0.2.10](https://github.com/runapi-ai/wan-sdk/releases/tag/go%2Fv0.2.10) - 2026-07-28
 
 ### Added
