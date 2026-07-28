@@ -1,4 +1,4 @@
-import type { AsyncTaskStatus } from '@runapi.ai/core';
+import type { AsyncTaskStatus, TaskBillingResponse, TaskResponse } from '@runapi.ai/core';
 
 // ——— Model types ———
 
@@ -49,6 +49,11 @@ export type WanEditVideoModel =
 
 // ——— Response types ———
 
+/** Acknowledgement returned when a Wan task is created. */
+export interface TaskCreateResponse extends TaskBillingResponse {
+  id: string;
+}
+
 /** A single generated video result. */
 export interface Video {
   /** URL to the generated video file. */
@@ -62,7 +67,7 @@ export interface Image {
 }
 
 /** Task result for video generation and editing operations. */
-export interface VideoTaskResponse {
+export interface VideoTaskResponse extends TaskResponse {
   id: string;
   status: AsyncTaskStatus;
   /** Output videos, populated once the task completes successfully. */
@@ -73,7 +78,7 @@ export interface VideoTaskResponse {
 }
 
 /** Task result for text-to-image operations. */
-export interface ImageTaskResponse {
+export interface ImageTaskResponse extends TaskResponse {
   id: string;
   status: AsyncTaskStatus;
   /** Output images, populated once the task completes successfully. */

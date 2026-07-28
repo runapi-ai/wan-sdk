@@ -2,7 +2,7 @@ import type { HttpClient, PollingOptions, RequestOptions, ActionSchema } from '@
 import { compactParams, validateParams } from '@runapi.ai/core';
 import { pollUntilComplete } from '@runapi.ai/core/internal';
 import { contract } from '../contract_gen';
-import type { CompletedVideoTaskResponse, TextToVideoParams, VideoTaskResponse } from '../types';
+import type { CompletedVideoTaskResponse, TaskCreateResponse, TextToVideoParams, VideoTaskResponse } from '../types';
 
 const ENDPOINT = '/api/v1/wan/text_to_video';
 
@@ -31,10 +31,10 @@ export class TextToVideo {
    * @param options Per-request overrides.
    * @returns The task creation result.
    */
-  async create(params: TextToVideoParams, options?: RequestOptions): Promise<{ id: string }> {
+  async create(params: TextToVideoParams, options?: RequestOptions): Promise<TaskCreateResponse> {
     const body = compactParams(params);
     validateParams(contract['text-to-video'] as ActionSchema, body as Record<string, unknown>);
-    return this.http.request<{ id: string }>('POST', ENDPOINT, {
+    return this.http.request<TaskCreateResponse>('POST', ENDPOINT, {
       body,
       ...options,
     });
