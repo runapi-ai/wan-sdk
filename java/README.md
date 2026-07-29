@@ -4,7 +4,7 @@
 
 The Wan Java SDK is the language-specific package for Wan on RunAPI. Use it when your Java application needs typed builders, strict request validation, task status lookup, local polling helpers, file uploads, account helpers, and consistent RunAPI errors for Wan workflows.
 
-This README is the Java package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs#wan; for SDK docs, use https://runapi.ai/docs#sdk-wan.
+This README is the Java package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs/api/wan/text-to-video; for SDK docs, use https://runapi.ai/docs/resources/sdks.
 
 ## Requirements
 
@@ -179,8 +179,8 @@ try {
 ## Links
 
 - Model page: https://runapi.ai/models/wan
-- SDK docs: https://runapi.ai/docs#sdk-wan
-- Product docs: https://runapi.ai/docs#wan
+- SDK docs: https://runapi.ai/docs/resources/sdks
+- Product docs: https://runapi.ai/docs/api/wan/text-to-video
 - Pricing and rate limits: https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo
 - Full catalog: https://runapi.ai/models
 - Repository: https://github.com/runapi-ai/wan-sdk

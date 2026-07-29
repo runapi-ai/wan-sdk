@@ -112,8 +112,8 @@ Most media endpoints are asynchronous. `create()` submits a task and returns its
 ## Public links
 
 - Model page: https://runapi.ai/models/wan
-- SDK docs: https://runapi.ai/docs#sdk-wan
-- Product docs: https://runapi.ai/docs#wan
+- SDK docs: https://runapi.ai/docs/resources/sdks
+- Product docs: https://runapi.ai/docs/api/wan/text-to-video
 - SDK repository: https://github.com/runapi-ai/wan-sdk
 - PHP package repository: https://github.com/runapi-ai/wan-php
 - Skill repository: https://github.com/runapi-ai/wan

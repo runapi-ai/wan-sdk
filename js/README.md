@@ -2,7 +2,7 @@
 
 The Wan JavaScript SDK is the language-specific package for Wan on RunAPI. Use this package for video generation, animation, and video editing workflows when your application needs request bodies, task status lookup, and consistent RunAPI errors in JavaScript.
 
-This README is the JavaScript package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs#wan; for SDK docs, use https://runapi.ai/docs#sdk-wan.
+This README is the JavaScript package guide inside the public `wan-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/wan; for API reference, use https://runapi.ai/docs/api/wan/text-to-video; for SDK docs, use https://runapi.ai/docs/resources/sdks.
 
 ## Install
 
@@ -17,7 +17,7 @@ import { WanClient } from '@runapi.ai/wan';
 
 const client = new WanClient();
 const task = await client.textToVideo.create({
-  // Pass the Wan JSON request body from https://runapi.ai/docs#wan.
+  // Pass the Wan JSON request body from https://runapi.ai/docs/api/wan/text-to-video.
 });
 const status = await client.textToVideo.get(task.id);
 ```
@@ -33,8 +33,8 @@ Use the TypeScript types in `src/types.ts` and the resource classes under `src/r
 ## Links
 
 - Model page: https://runapi.ai/models/wan
-- SDK docs: https://runapi.ai/docs#sdk-wan
-- Product docs: https://runapi.ai/docs#wan
+- SDK docs: https://runapi.ai/docs/resources/sdks
+- Product docs: https://runapi.ai/docs/api/wan/text-to-video
 - Pricing and rate limits: https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo
 - Provider comparison: https://runapi.ai/providers/alibaba
 - Full catalog: https://runapi.ai/models
