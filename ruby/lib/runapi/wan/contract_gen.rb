@@ -81,7 +81,13 @@ module RunApi
               "required" => true
             }
           }
-        }
+        },
+        "rules" => [{
+          "when" => {
+            "model" => "wan-2.7-edit-video"
+          },
+          "forbidden" => ["multi_shots"]
+        }]
       },
       "image-to-video" => {
         "models" => ["wan-2.2-a14b-image-to-video-turbo", "wan-2.5-image-to-video", "wan-2.6-flash-image-to-video", "wan-2.6-image-to-video", "wan-2.7-image-to-video"],
@@ -164,6 +170,16 @@ module RunApi
         },
         "rules" => [{
           "when" => {
+            "model" => "wan-2.2-a14b-image-to-video-turbo"
+          },
+          "forbidden" => ["multi_shots"]
+        }, {
+          "when" => {
+            "model" => "wan-2.5-image-to-video"
+          },
+          "forbidden" => ["multi_shots"]
+        }, {
+          "when" => {
             "model" => "wan-2.6-flash-image-to-video"
           },
           "forbidden" => ["seed"]
@@ -172,6 +188,11 @@ module RunApi
             "model" => "wan-2.6-image-to-video"
           },
           "forbidden" => ["seed"]
+        }, {
+          "when" => {
+            "model" => "wan-2.7-image-to-video"
+          },
+          "forbidden" => ["multi_shots"]
         }]
       },
       "speech-to-video" => {
@@ -301,9 +322,29 @@ module RunApi
         },
         "rules" => [{
           "when" => {
+            "model" => "wan-2.2-a14b-text-to-video-turbo"
+          },
+          "forbidden" => ["multi_shots"]
+        }, {
+          "when" => {
+            "model" => "wan-2.5-text-to-video"
+          },
+          "forbidden" => ["multi_shots"]
+        }, {
+          "when" => {
             "model" => "wan-2.6-text-to-video"
           },
           "forbidden" => ["seed"]
+        }, {
+          "when" => {
+            "model" => "wan-2.7-r2v"
+          },
+          "forbidden" => ["multi_shots"]
+        }, {
+          "when" => {
+            "model" => "wan-2.7-text-to-video"
+          },
+          "forbidden" => ["multi_shots"]
         }]
       }
     }.freeze

@@ -5,7 +5,9 @@ module RunApi
     module Resources
       # Modifies existing videos guided by a text prompt and optional reference image.
       # The 2.6 models use source_video_urls (plural, required) while 2.7 uses
-      # source_video_url (singular, required). Flash variants support audio and multi-shot.
+      # source_video_url (singular, required). Flash variants support audio. On
+      # WAN 2.6, multi_shots controls whether the generated video uses multiple
+      # shots with transitions instead of one continuous shot.
       class EditVideo
         include RunApi::Core::ResourceHelpers
 

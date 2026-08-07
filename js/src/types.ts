@@ -143,12 +143,14 @@ export interface TextToVideoParams {
   watermark?: boolean;
   /** Background audio URL overlaid on the video (2.7 only). */
   background_audio_url?: string;
+  /** Controls whether the generated video uses multiple shots with transitions instead of one continuous shot. */
+  multi_shots?: boolean;
 }
 
 /**
  * Image-to-video parameters. Prompt is optional for 2.2/2.5 but required for 2.6+.
  * last_frame_image_url, source_video_url, driving/background audio, and watermark are 2.7-only;
- * audio and multi_shots are flash-only.
+ * audio is flash-only; multi_shots is available on WAN 2.6 models.
  */
 export interface ImageToVideoParams {
   model: WanImageToVideoModel;
@@ -181,7 +183,7 @@ export interface ImageToVideoParams {
   watermark?: boolean;
   /** Generate synchronized audio (flash only). */
   audio?: boolean;
-  /** Enable multi-shot mode (flash only). */
+  /** Controls whether the generated video uses multiple shots with transitions instead of one continuous shot. */
   multi_shots?: boolean;
   /** Driving audio URL for lip-sync guidance (2.7 only). */
   driving_audio_url?: string;
@@ -288,7 +290,7 @@ export interface TextToImageParams {
 /**
  * Video editing parameters. The 2.6 models use source_video_urls (plural, required)
  * while 2.7 uses source_video_url (singular, required). Prompt is required for 2.6,
- * optional for 2.7. Audio and multi_shots are flash-only features.
+ * optional for 2.7. Audio is flash-only; multi_shots is available on WAN 2.6 models.
  */
 export interface EditVideoParams {
   model: WanEditVideoModel;
@@ -320,6 +322,6 @@ export interface EditVideoParams {
   enable_safety_checker?: boolean;
   /** Generate synchronized audio (flash only). */
   audio?: boolean;
-  /** Enable multi-shot mode (flash only). */
+  /** Controls whether the generated video uses multiple shots with transitions instead of one continuous shot. */
   multi_shots?: boolean;
 }

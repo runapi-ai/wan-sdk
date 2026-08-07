@@ -81,10 +81,10 @@ describe('Wan resources', () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({ id: 'task-2' });
     const textToVideo = new TextToVideo(mockHttp);
 
-    await textToVideo.create({ model: 'wan-2.6-text-to-video', prompt: 'Ocean waves' });
+    await textToVideo.create({ model: 'wan-2.6-text-to-video', prompt: 'Ocean waves', multi_shots: false });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/text_to_video', {
-      body: { model: 'wan-2.6-text-to-video', prompt: 'Ocean waves' },
+      body: { model: 'wan-2.6-text-to-video', prompt: 'Ocean waves', multi_shots: false },
     });
   });
 

@@ -104,7 +104,17 @@ export const contract = {
           "required": true
         }
       }
-    }
+    },
+    "rules": [
+      {
+        "when": {
+          "model": "wan-2.7-edit-video"
+        },
+        "forbidden": [
+          "multi_shots"
+        ]
+      }
+    ]
   },
   "image-to-video": {
     "models": [
@@ -213,6 +223,22 @@ export const contract = {
     "rules": [
       {
         "when": {
+          "model": "wan-2.2-a14b-image-to-video-turbo"
+        },
+        "forbidden": [
+          "multi_shots"
+        ]
+      },
+      {
+        "when": {
+          "model": "wan-2.5-image-to-video"
+        },
+        "forbidden": [
+          "multi_shots"
+        ]
+      },
+      {
+        "when": {
           "model": "wan-2.6-flash-image-to-video"
         },
         "forbidden": [
@@ -225,6 +251,14 @@ export const contract = {
         },
         "forbidden": [
           "seed"
+        ]
+      },
+      {
+        "when": {
+          "model": "wan-2.7-image-to-video"
+        },
+        "forbidden": [
+          "multi_shots"
         ]
       }
     ]
@@ -420,10 +454,42 @@ export const contract = {
     "rules": [
       {
         "when": {
+          "model": "wan-2.2-a14b-text-to-video-turbo"
+        },
+        "forbidden": [
+          "multi_shots"
+        ]
+      },
+      {
+        "when": {
+          "model": "wan-2.5-text-to-video"
+        },
+        "forbidden": [
+          "multi_shots"
+        ]
+      },
+      {
+        "when": {
           "model": "wan-2.6-text-to-video"
         },
         "forbidden": [
           "seed"
+        ]
+      },
+      {
+        "when": {
+          "model": "wan-2.7-r2v"
+        },
+        "forbidden": [
+          "multi_shots"
+        ]
+      },
+      {
+        "when": {
+          "model": "wan-2.7-text-to-video"
+        },
+        "forbidden": [
+          "multi_shots"
         ]
       }
     ]

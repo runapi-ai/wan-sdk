@@ -14,7 +14,11 @@ from ..types import (
 
 
 class TextToVideo(Resource):
-    """Generate videos from text prompts with Wan models."""
+    """Generate videos from text prompts with Wan models.
+
+    On WAN 2.6, ``multi_shots`` controls whether the generated video uses
+    multiple shots with transitions instead of one continuous shot.
+    """
 
     ENDPOINT = "/api/v1/wan/text_to_video"
 

@@ -5,7 +5,9 @@ module RunApi
     module Resources
       # Generates videos from text prompts. Supports turbo (2.2) through 2.7
       # with progressive feature upgrades including negative prompts, watermark
-      # control, background audio, and R2V multi-reference inputs.
+      # control, background audio, and R2V multi-reference inputs. On WAN 2.6,
+      # multi_shots controls whether the generated video uses multiple shots
+      # with transitions instead of one continuous shot.
       class TextToVideo
         include RunApi::Core::ResourceHelpers
 

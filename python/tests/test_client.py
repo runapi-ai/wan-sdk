@@ -87,10 +87,14 @@ def test_create_posts_compacted_body():
     fake = FakeHttp({"id": "t1", "status": "pending"})
     client = WanClient(api_key="k", http_client=fake)
     result = client.text_to_video.create(
-        model="wan-2.6-text-to-video", prompt="hello world", seed=None
+        model="wan-2.6-text-to-video", prompt="hello world", multi_shots=False, seed=None
     )
     assert fake.calls == [
-        ("post", "/api/v1/wan/text_to_video", {"model": "wan-2.6-text-to-video", "prompt": "hello world"}),
+        (
+            "post",
+            "/api/v1/wan/text_to_video",
+            {"model": "wan-2.6-text-to-video", "prompt": "hello world", "multi_shots": False},
+        ),
     ]
     assert isinstance(result, VideoTaskResponse)
 

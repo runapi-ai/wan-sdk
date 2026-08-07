@@ -25,6 +25,7 @@ public final class TextToVideoParams {
   private final Boolean enableSafetyChecker;
   private final Boolean watermark;
   private final String backgroundAudioUrl;
+  private final Boolean multiShots;
 
   private TextToVideoParams(Builder builder) {
     this.model = WanParamUtils.requireNonBlankTrim(builder.model, "model");
@@ -45,6 +46,7 @@ public final class TextToVideoParams {
     this.enableSafetyChecker = builder.enableSafetyChecker;
     this.watermark = builder.watermark;
     this.backgroundAudioUrl = builder.backgroundAudioUrl;
+    this.multiShots = builder.multiShots;
     validateR2vReferenceMedia();
   }
 
@@ -79,6 +81,7 @@ public final class TextToVideoParams {
     raw.put("enable_safety_checker", enableSafetyChecker);
     raw.put("watermark", watermark);
     raw.put("background_audio_url", backgroundAudioUrl);
+    raw.put("multi_shots", multiShots);
     return WanParamUtils.compact(raw);
   }
 
@@ -117,6 +120,7 @@ public final class TextToVideoParams {
     private Boolean enableSafetyChecker;
     private Boolean watermark;
     private String backgroundAudioUrl;
+    private Boolean multiShots;
 
     private Builder() {}
 
@@ -237,6 +241,12 @@ public final class TextToVideoParams {
     /** Sets the background audio URL. */
     public Builder backgroundAudioUrl(String value) {
       this.backgroundAudioUrl = WanParamUtils.requireNonBlank(value, "backgroundAudioUrl");
+      return this;
+    }
+
+    /** Controls whether the generated video uses multiple shots with transitions instead of one continuous shot. */
+    public Builder multiShots(boolean value) {
+      this.multiShots = value;
       return this;
     }
 

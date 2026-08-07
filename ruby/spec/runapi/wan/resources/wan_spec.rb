@@ -9,7 +9,7 @@ RSpec.describe RunApi::Wan::Resources::TextToVideo do
 
   describe "#create" do
     it "POSTs to the correct endpoint with params" do
-      params = {model: "wan-2.5-text-to-video", prompt: "a serene ocean", enable_safety_checker: true}
+      params = {model: "wan-2.6-text-to-video", prompt: "a serene ocean", multi_shots: false}
       expect(http).to receive(:request).with(:post, endpoint, body: params)
         .and_return("id" => "task-1")
 

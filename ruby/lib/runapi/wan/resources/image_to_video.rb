@@ -5,6 +5,8 @@ module RunApi
     module Resources
       # Generates videos driven by a source image. Flash variants trade fidelity
       # for speed; 2.7 adds last-frame control, video continuation, and audio features.
+      # On WAN 2.6, multi_shots controls whether the generated video uses multiple
+      # shots with transitions instead of one continuous shot.
       class ImageToVideo
         include RunApi::Core::ResourceHelpers
 

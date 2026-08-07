@@ -1,5 +1,11 @@
 # Changelog
 
+## [js/v0.3.2](https://github.com/runapi-ai/wan-sdk/releases/tag/js%2Fv0.3.2), [ruby/v0.2.11](https://github.com/runapi-ai/wan-sdk/releases/tag/ruby%2Fv0.2.11), [go/v0.2.12](https://github.com/runapi-ai/wan-sdk/releases/tag/go%2Fv0.2.12), [python/v0.2.2](https://github.com/runapi-ai/wan-sdk/releases/tag/python%2Fv0.2.2), [java/v0.1.3](https://github.com/runapi-ai/wan-sdk/releases/tag/java%2Fv0.1.3) - 2026-08-07
+
+### Added
+- Add the optional multi_shots field to WAN 2.6 text-to-video, image-to-video, and video editing requests.
+
+
 ## [js/v0.3.1](https://github.com/runapi-ai/wan-sdk/releases/tag/js%2Fv0.3.1), [ruby/v0.2.10](https://github.com/runapi-ai/wan-sdk/releases/tag/ruby%2Fv0.2.10), [go/v0.2.11](https://github.com/runapi-ai/wan-sdk/releases/tag/go%2Fv0.2.11), [python/v0.2.1](https://github.com/runapi-ai/wan-sdk/releases/tag/python%2Fv0.2.1) - 2026-07-28
 
 ### Fixed

@@ -207,7 +207,7 @@ public final class EditVideoParams {
       return this;
     }
 
-    /** Sets the multi-shot mode toggle. */
+    /** Controls whether the generated video uses multiple shots with transitions instead of one continuous shot. */
     public Builder multiShots(boolean value) {
       this.multiShots = value;
       return this;

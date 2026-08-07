@@ -97,7 +97,8 @@ type ImageTaskResponse struct {
 
 // TextToVideoParams configures text-to-video generation.
 // Some fields are model-specific: NegativePrompt works on 2.5 and 2.7;
-// Ratio, Watermark, and BackgroundAudioURL are 2.7-only; reference inputs are R2V-only.
+// Ratio, Watermark, and BackgroundAudioURL are 2.7-only; reference inputs are R2V-only;
+// MultiShots is available on WAN 2.6.
 type TextToVideoParams struct {
 	Model                 string   `json:"model" help:"required; model slug"`
 	Prompt                string   `json:"prompt" help:"required; text prompt describing the video"`
@@ -117,12 +118,13 @@ type TextToVideoParams struct {
 	EnableSafetyChecker   *bool    `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
 	Watermark             *bool    `json:"watermark,omitempty" help:"optional; add watermark (2-7 only)"`
 	BackgroundAudioURL    string   `json:"background_audio_url,omitempty" help:"optional; background audio URL (2-7 only)"`
+	MultiShots            *bool    `json:"multi_shots,omitempty" help:"optional; controls whether the generated video uses multiple shots with transitions instead of one continuous shot"`
 }
 
 // ImageToVideoParams configures image-to-video generation.
 // Feature availability varies by generation: 2.2/2.5 treat Prompt as optional while 2.6+ require it;
 // LastFrameImageURL, SourceVideoURL, DrivingAudioURL, BackgroundAudioURL, and Watermark are 2.7-only;
-// Audio and MultiShots are flash-only.
+// Audio is flash-only; MultiShots is available on WAN 2.6 models.
 type ImageToVideoParams struct {
 	Model                 string `json:"model" help:"required; model slug"`
 	Prompt                string `json:"prompt,omitempty" help:"optional for 2-2/2-5 (required for 2-6/2-7); text prompt"`
@@ -140,7 +142,7 @@ type ImageToVideoParams struct {
 	EnableSafetyChecker   *bool  `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
 	Watermark             *bool  `json:"watermark,omitempty" help:"optional; add watermark (2-7 only)"`
 	Audio                 *bool  `json:"audio,omitempty" help:"optional; generate audio (flash only)"`
-	MultiShots            *bool  `json:"multi_shots,omitempty" help:"optional; multi-shot mode (flash only)"`
+	MultiShots            *bool  `json:"multi_shots,omitempty" help:"optional; controls whether the generated video uses multiple shots with transitions instead of one continuous shot"`
 	DrivingAudioURL       string `json:"driving_audio_url,omitempty" help:"optional; driving audio URL (2-7 only)"`
 	BackgroundAudioURL    string `json:"background_audio_url,omitempty" help:"optional; background audio URL (2-7 only)"`
 	Ratio                 string `json:"ratio,omitempty" help:"optional; alternative ratio format (2-7 only)"`
@@ -208,7 +210,7 @@ type TextToImageParams struct {
 
 // EditVideoParams configures video editing with a text prompt.
 // The 2.6 models use SourceVideoURLs (plural, required) while 2.7 uses SourceVideoURL (singular, required).
-// Audio and MultiShots are flash-only features.
+// Audio is flash-only; MultiShots is available on WAN 2.6 models.
 type EditVideoParams struct {
 	Model                 string   `json:"model" help:"required; model slug"`
 	SourceVideoURL        string   `json:"source_video_url,omitempty" help:"optional; source video URL (2-7 only)"`
@@ -226,5 +228,5 @@ type EditVideoParams struct {
 	Seed                  *int     `json:"seed,omitempty" help:"optional; random seed"`
 	EnableSafetyChecker   *bool    `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
 	Audio                 *bool    `json:"audio,omitempty" help:"optional; generate audio (flash only)"`
-	MultiShots            *bool    `json:"multi_shots,omitempty" help:"optional; multi-shot mode (flash only)"`
+	MultiShots            *bool    `json:"multi_shots,omitempty" help:"optional; controls whether the generated video uses multiple shots with transitions instead of one continuous shot"`
 }

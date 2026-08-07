@@ -32,10 +32,12 @@ func TestTextToVideoCreate(t *testing.T) {
 	}
 	client := NewClientWithHTTP(stub)
 	enableSafetyChecker := true
+	multiShots := false
 	resp, err := client.TextToVideo.Create(context.Background(), TextToVideoParams{
 		Model:               string(ModelT2V26),
 		Prompt:              "A scenic mountain landscape",
 		EnableSafetyChecker: &enableSafetyChecker,
+		MultiShots:          &multiShots,
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -52,6 +54,9 @@ func TestTextToVideoCreate(t *testing.T) {
 	}
 	if body["enable_safety_checker"] != true {
 		t.Fatalf("unexpected enable_safety_checker: %v", body["enable_safety_checker"])
+	}
+	if body["multi_shots"] != false {
+		t.Fatalf("unexpected multi_shots: %v", body["multi_shots"])
 	}
 	if resp.ID != "task_t2v_123" {
 		t.Fatalf("unexpected ID: %v", resp.ID)

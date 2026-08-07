@@ -16,7 +16,7 @@ Gradle:
 
 ```kotlin
 dependencies {
-  implementation("ai.runapi:runapi-wan:0.1.2")
+  implementation("ai.runapi:runapi-wan:0.1.3")
 }
 ```
 
@@ -26,7 +26,7 @@ Maven:
 <dependency>
   <groupId>ai.runapi</groupId>
   <artifactId>runapi-wan</artifactId>
-  <version>0.1.2</version>
+  <version>0.1.3</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ Use the BOM when multiple RunAPI Java modules are installed:
 
 ```kotlin
 dependencies {
-  implementation(platform("ai.runapi:runapi-bom:0.2.8"))
+  implementation(platform("ai.runapi:runapi-bom:0.3.0"))
   implementation("ai.runapi:runapi-wan")
 }
 ```
@@ -47,7 +47,7 @@ Maven BOM:
     <dependency>
       <groupId>ai.runapi</groupId>
       <artifactId>runapi-bom</artifactId>
-      <version>0.2.8</version>
+      <version>0.3.0</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>

@@ -61,8 +61,8 @@ const url = result.videos[0].url;
 ## Routing
 
 - Model page: https://runapi.ai/models/wan
-- Product docs: https://runapi.ai/docs#wan
-- SDK docs: https://runapi.ai/docs#sdk-wan
+- Product docs: https://runapi.ai/docs/api/wan/text-to-video
+- SDK docs: https://runapi.ai/docs/resources/sdks
 - SDK repository: https://github.com/runapi-ai/wan-sdk
 - Pricing and rate limits: https://runapi.ai/models/wan/2.2-a14b-text-to-video-turbo
 - Provider comparison: https://runapi.ai/providers/alibaba

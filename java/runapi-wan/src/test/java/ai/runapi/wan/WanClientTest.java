@@ -109,6 +109,7 @@ class WanClientTest {
                     .model(TextToVideoModel.WAN_2_6_TEXT_TO_VIDEO)
                     .prompt("A scenic mountain landscape")
                     .enableSafetyChecker(true)
+                    .multiShots(false)
                     .build(),
                 RequestOptions.builder().header("X-Test", "yes").build());
 
@@ -120,6 +121,7 @@ class WanClientTest {
     assertEquals("wan-2.6-text-to-video", body.get("model").asText());
     assertEquals("A scenic mountain landscape", body.get("prompt").asText());
     assertEquals(true, body.get("enable_safety_checker").asBoolean());
+    assertEquals(false, body.get("multi_shots").asBoolean());
     assertFalse(body.has("reference_image"));
   }
 
