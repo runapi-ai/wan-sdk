@@ -111,7 +111,8 @@ export const contract = {
           "model": "wan-2.7-edit-video"
         },
         "forbidden": [
-          "multi_shots"
+          "multi_shots",
+          "enable_safety_checker"
         ]
       }
     ]

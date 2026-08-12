@@ -86,7 +86,7 @@ module RunApi
           "when" => {
             "model" => "wan-2.7-edit-video"
           },
-          "forbidden" => ["multi_shots"]
+          "forbidden" => ["multi_shots", "enable_safety_checker"]
         }]
       },
       "image-to-video" => {
