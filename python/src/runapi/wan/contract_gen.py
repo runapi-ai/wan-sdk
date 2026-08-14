@@ -82,7 +82,7 @@ CONTRACT = {
             "when": {
                 "model": "wan-2.7-edit-video"
             },
-            "forbidden": ["multi_shots", "enable_safety_checker"]
+            "forbidden": ["multi_shots"]
         }]
     },
     "image-to-video": {

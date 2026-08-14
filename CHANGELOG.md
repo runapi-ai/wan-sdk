@@ -1,5 +1,11 @@
 # Changelog
 
+## [js/v0.3.4](https://github.com/runapi-ai/wan-sdk/releases/tag/js%2Fv0.3.4), [ruby/v0.2.13](https://github.com/runapi-ai/wan-sdk/releases/tag/ruby%2Fv0.2.13), [go/v0.2.14](https://github.com/runapi-ai/wan-sdk/releases/tag/go%2Fv0.2.14), [python/v0.2.4](https://github.com/runapi-ai/wan-sdk/releases/tag/python%2Fv0.2.4) - 2026-08-14
+
+### Fixed
+- Accept enable_safety_checker for Wan 2.7 video edit requests.
+
+
 ## [js/v0.3.3](https://github.com/runapi-ai/wan-sdk/releases/tag/js%2Fv0.3.3), [ruby/v0.2.12](https://github.com/runapi-ai/wan-sdk/releases/tag/ruby%2Fv0.2.12), [go/v0.2.13](https://github.com/runapi-ai/wan-sdk/releases/tag/go%2Fv0.2.13), [python/v0.2.3](https://github.com/runapi-ai/wan-sdk/releases/tag/python%2Fv0.2.3) - 2026-08-12
 
 ### Fixed
