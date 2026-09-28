@@ -28,8 +28,7 @@ func intPtr(v int) *int { return &v }
 
 func TestTextToVideoCreate(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_t2v_123","status":"processing"}`),
-	}
+		response: json.RawMessage(`{"id":"task_t2v_123","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	enableSafetyChecker := true
 	multiShots := false
@@ -37,8 +36,7 @@ func TestTextToVideoCreate(t *testing.T) {
 		Model:               string(ModelT2V26),
 		Prompt:              "A scenic mountain landscape",
 		EnableSafetyChecker: &enableSafetyChecker,
-		MultiShots:          &multiShots,
-	})
+		MultiShots:          &multiShots})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -65,15 +63,13 @@ func TestTextToVideoCreate(t *testing.T) {
 
 func TestTextToVideoCreateR2V(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_r2v_123","status":"processing"}`),
-	}
+		response: json.RawMessage(`{"id":"task_r2v_123","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.TextToVideo.Create(context.Background(), TextToVideoParams{
 		Model:              string(ModelT2V27R2V),
 		Prompt:             "A person walking in the park",
 		ReferenceImageURLs: []string{"https://cdn.runapi.ai/public/samples/person.jpg"},
-		OutputResolution:   "1080p",
-	})
+		OutputResolution:   "1080p"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -97,8 +93,7 @@ func TestTextToVideoCreateR2V(t *testing.T) {
 
 func TestTextToVideoGet(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_t2v_456","status":"completed","videos":[{"url":"https://file.runapi.ai/result.mp4"}]}`),
-	}
+		response: json.RawMessage(`{"id":"task_t2v_456","status":"completed", "usage": {"cost": 0.05},"videos":[{"url":"https://file.runapi.ai/result.mp4"}]}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.TextToVideo.Get(context.Background(), "task_t2v_456")
 	if err != nil {
@@ -117,15 +112,13 @@ func TestTextToVideoGet(t *testing.T) {
 
 func TestImageToVideoCreate(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_i2v_123","status":"processing"}`),
-	}
+		response: json.RawMessage(`{"id":"task_i2v_123","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.ImageToVideo.Create(context.Background(), ImageToVideoParams{
 		Model:              string(ModelI2V26),
 		Prompt:             "Make this image move",
 		FirstFrameImageURL: "https://cdn.runapi.ai/public/samples/input.jpg",
-		OutputResolution:   "1080p",
-	})
+		OutputResolution:   "1080p"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -149,16 +142,14 @@ func TestImageToVideoCreate(t *testing.T) {
 
 func TestEditVideoCreateWan26(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_edit_26_123","status":"processing"}`),
-	}
+		response: json.RawMessage(`{"id":"task_edit_26_123","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.EditVideo.Create(context.Background(), EditVideoParams{
 		Model:            string(ModelEdit26),
 		Prompt:           "Add cinematic color grading",
 		SourceVideoURLs:  []string{"https://cdn.runapi.ai/public/samples/source.mp4"},
 		OutputResolution: "1080p",
-		DurationSeconds:  5,
-	})
+		DurationSeconds:  5})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -182,16 +173,14 @@ func TestEditVideoCreateWan26(t *testing.T) {
 
 func TestSpeechToVideoCreate(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_s2v_123","status":"processing"}`),
-	}
+		response: json.RawMessage(`{"id":"task_s2v_123","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.SpeechToVideo.Create(context.Background(), SpeechToVideoParams{
 		Model:            "wan-2.2-a14b-speech-to-video-turbo",
 		Prompt:           "speak naturally",
 		SourceImageURL:   "https://cdn.runapi.ai/public/samples/face.jpg",
 		SourceAudioURL:   "https://cdn.runapi.ai/public/samples/speech.mp3",
-		OutputResolution: "720p",
-	})
+		OutputResolution: "720p"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -221,15 +210,13 @@ func TestSpeechToVideoCreate(t *testing.T) {
 
 func TestAnimateCreate(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_anim_123","status":"processing"}`),
-	}
+		response: json.RawMessage(`{"id":"task_anim_123","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.Animate.Create(context.Background(), AnimateParams{
 		Model:             "wan-2.2-animate-move",
 		ReferenceVideoURL: "https://cdn.runapi.ai/public/samples/motion.mp4",
 		SourceImageURL:    "https://cdn.runapi.ai/public/samples/character.jpg",
-		OutputResolution:  "580p",
-	})
+		OutputResolution:  "580p"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -259,16 +246,14 @@ func TestAnimateCreate(t *testing.T) {
 
 func TestTextToImageCreate(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_img_123","status":"processing"}`),
-	}
+		response: json.RawMessage(`{"id":"task_img_123","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.TextToImage.Create(context.Background(), TextToImageParams{
 		Model:            string(ModelImage27),
 		Prompt:           "A surreal dreamscape with floating islands",
 		AspectRatio:      "1:8",
 		OutputResolution: "2k",
-		OutputCount:      intPtr(2),
-	})
+		OutputCount:      intPtr(2)})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -292,14 +277,12 @@ func TestTextToImageCreate(t *testing.T) {
 
 func TestTextToImageCreateWithSourceImages(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_img_source_123","status":"processing"}`),
-	}
+		response: json.RawMessage(`{"id":"task_img_source_123","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.TextToImage.Create(context.Background(), TextToImageParams{
 		Model:           string(ModelImage27),
 		Prompt:          "Edit this image",
-		SourceImageURLs: []string{"https://cdn.runapi.ai/public/samples/source.jpg"},
-	})
+		SourceImageURLs: []string{"https://cdn.runapi.ai/public/samples/source.jpg"}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -317,8 +300,7 @@ func TestTextToImageCreateWithSourceImages(t *testing.T) {
 
 func TestTextToImageGet(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_img_456","status":"completed","images":[{"url":"https://file.runapi.ai/result.jpg"}]}`),
-	}
+		response: json.RawMessage(`{"id":"task_img_456","status":"completed", "usage": {"cost": 0.05},"images":[{"url":"https://file.runapi.ai/result.jpg"}]}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.TextToImage.Get(context.Background(), "task_img_456")
 	if err != nil {
@@ -331,16 +313,14 @@ func TestTextToImageGet(t *testing.T) {
 
 func TestEditVideoCreate(t *testing.T) {
 	stub := &stubHTTPClient{
-		response: json.RawMessage(`{"id":"task_vedit_123","status":"processing"}`),
-	}
+		response: json.RawMessage(`{"id":"task_vedit_123","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	resp, err := client.EditVideo.Create(context.Background(), EditVideoParams{
 		Model:             string(ModelEdit27),
 		SourceVideoURL:    "https://cdn.runapi.ai/public/samples/source.mp4",
 		Prompt:            "Make the sky more dramatic",
 		ReferenceImageURL: "https://cdn.runapi.ai/public/samples/style.png",
-		OutputResolution:  "1080p",
-	})
+		OutputResolution:  "1080p"})
 	if err != nil {
 		t.Fatal(err)
 	}

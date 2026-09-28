@@ -1,4 +1,4 @@
-import type { AsyncTaskStatus, TaskBillingResponse, TaskResponse } from '@runapi.ai/core';
+import type { AsyncTaskStatus, TaskResponse } from '@runapi.ai/core';
 
 // ——— Model types ———
 
@@ -50,7 +50,7 @@ export type WanEditVideoModel =
 // ——— Response types ———
 
 /** Acknowledgement returned when a Wan task is created. */
-export interface TaskCreateResponse extends TaskBillingResponse {
+export interface TaskCreateResponse {
   id: string;
 }
 
