@@ -94,8 +94,7 @@ def test_create_posts_compacted_body():
             "post",
             "/api/v1/wan/text_to_video",
             {"model": "wan-2.6-text-to-video", "prompt": "hello world", "multi_shots": False},
-        ),
-    ]
+        )]
     assert isinstance(result, VideoTaskResponse)
 
 
@@ -119,8 +118,7 @@ def test_image_to_video_posts_to_endpoint():
             "post",
             "/api/v1/wan/image_to_video",
             {"model": "wan-2.6-image-to-video", "first_frame_image_url": "https://x/a.png", "prompt": "make it move"},
-        ),
-    ]
+        )]
 
 
 def test_text_to_image_uses_image_endpoint():
@@ -128,14 +126,13 @@ def test_text_to_image_uses_image_endpoint():
     client = WanClient(api_key="k", http_client=fake)
     client.text_to_image.create(model="wan-2.7-image", prompt="a cat")
     assert fake.calls == [
-        ("post", "/api/v1/wan/text_to_image", {"model": "wan-2.7-image", "prompt": "a cat"}),
-    ]
+        ("post", "/api/v1/wan/text_to_image", {"model": "wan-2.7-image", "prompt": "a cat"})]
 
 
 def test_run_narrows_completed_type():
     fake = FakeHttp(
         {"id": "t1", "status": "pending"},
-        {"id": "t1", "status": "completed", "videos": [{"url": "https://x/y.mp4"}]},
+        {"id": "t1", "status": "completed", "usage": {"cost": 0.05}, "videos": [{"url": "https://x/y.mp4"}]},
     )
     client = WanClient(api_key="k", http_client=fake)
     result = client.text_to_video.run(model="wan-2.6-text-to-video", prompt="a serene lake")
@@ -199,5 +196,4 @@ def test_edit_video_non_2_6_accepts_single_source_url():
     client = WanClient(api_key="k", http_client=fake)
     client.edit_video.create(model="wan-2.7-edit-video", source_video_url="https://x/v.mp4")
     assert fake.calls == [
-        ("post", "/api/v1/wan/edit_video", {"model": "wan-2.7-edit-video", "source_video_url": "https://x/v.mp4"}),
-    ]
+        ("post", "/api/v1/wan/edit_video", {"model": "wan-2.7-edit-video", "source_video_url": "https://x/v.mp4"})]

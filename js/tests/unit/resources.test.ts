@@ -20,7 +20,6 @@ describe('Wan resources', () => {
   it('creates images with flat params', async () => {
     vi.mocked(mockHttp.request).mockResolvedValueOnce({
       id: 'task-1',
-      billing: { reservation: { amount_cents: 95 }, settlement: null, refund: null },
     });
     const textToImage = new TextToImage(mockHttp);
 
@@ -29,13 +28,15 @@ describe('Wan resources', () => {
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/text_to_image', {
       body: { model: 'wan-2.7-image', prompt: 'A mountain lake', aspect_ratio: '1:8', output_resolution: '2k', output_count: 2 },
     });
-    expect(result.billing?.reservation).toEqual({ amount_cents: 95 });
+    expect(result.id).toBe('task-1');
+    expect(result).not.toHaveProperty('billing');
+    expect(result).not.toHaveProperty('usage');
   });
 
-  it('returns billing facts from every create resource while accepting legacy id-only responses', () => {
+  it('omits usage from every create resource while accepting id-only responses', () => {
     const legacyResponse: TaskCreateResponse = { id: 'task-legacy' };
 
-    expect(legacyResponse.billing).toBeUndefined();
+    expect('usage' in legacyResponse).toBe(false);
     expectTypeOf<ReturnType<Animate['create']>>().toEqualTypeOf<Promise<TaskCreateResponse>>();
     expectTypeOf<ReturnType<EditVideo['create']>>().toEqualTypeOf<Promise<TaskCreateResponse>>();
     expectTypeOf<ReturnType<ImageToVideo['create']>>().toEqualTypeOf<Promise<TaskCreateResponse>>();
