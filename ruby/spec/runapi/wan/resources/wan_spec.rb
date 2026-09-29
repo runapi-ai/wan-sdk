@@ -39,7 +39,7 @@ RSpec.describe RunApi::Wan::Resources::TextToVideo do
     end
 
     it "raises ValidationError when prompt is missing" do
-      expect { resource.create(model: "wan-2.5-text-to-video") }
+      expect { resource.create(model: "wan-2.5-text-to-video", output_resolution: "720p") }
         .to raise_error(RunApi::Core::ValidationError, /prompt is required/)
     end
 
@@ -49,8 +49,10 @@ RSpec.describe RunApi::Wan::Resources::TextToVideo do
     end
 
     it "accepts all valid T2V models" do
-      RunApi::Wan::CONTRACT["text-to-video"]["models"].each do |model|
-        params = {model: model, prompt: "test"}
+      contract = RunApi::Wan::CONTRACT["text-to-video"]
+      contract["models"].each do |model|
+        required = contract["fields_by_model"][model].select { |field, rules| rules["required"] && rules["enum"] && field != "model" }
+        params = {model: model, prompt: "test", **required.to_h { |field, rules| [field.to_sym, rules["enum"].first] }}
         expect(http).to receive(:request).with(:post, endpoint, body: params).and_return("id" => "t1")
         resource.create(**params)
       end
@@ -71,7 +73,7 @@ RSpec.describe RunApi::Wan::Resources::TextToVideo do
 
   describe "#run" do
     it "creates then polls until complete" do
-      params = {model: "wan-2.5-text-to-video", prompt: "ocean waves"}
+      params = {model: "wan-2.5-text-to-video", prompt: "ocean waves", output_resolution: "720p"}
       expect(http).to receive(:request).with(:post, endpoint, body: params).and_return("id" => "task-1")
       expect(http).to receive(:request).with(:get, "#{endpoint}/task-1").and_return("id" => "task-1", "status" => "processing")
       expect(http).to receive(:request).with(:get, "#{endpoint}/task-1")
@@ -115,7 +117,11 @@ RSpec.describe RunApi::Wan::Resources::ImageToVideo do
       contract["models"].each do |model|
         required = contract["fields_by_model"][model].select { |_, rules| rules["required"] }
         params = required.to_h do |field, rules|
-          value = (rules["type"] == "integer") ? 5 : "https://cdn.runapi.ai/public/samples/x"
+          value = if rules["enum"]
+            rules["enum"].first
+          else
+            (rules["type"] == "integer") ? 5 : "https://cdn.runapi.ai/public/samples/x"
+          end
           [field.to_sym, value]
         end
         params[:model] = model

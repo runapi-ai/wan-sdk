@@ -65,6 +65,9 @@ export const contract = {
         }
       },
       "wan-2.6-flash-edit-video": {
+        "audio": {
+          "required": true
+        },
         "duration_seconds": {
           "type": "integer"
         },
@@ -144,6 +147,10 @@ export const contract = {
       },
       "wan-2.5-image-to-video": {
         "duration_seconds": {
+          "enum": [
+            5,
+            10
+          ],
           "required": true,
           "type": "integer"
         },
@@ -154,7 +161,8 @@ export const contract = {
           "enum": [
             "720p",
             "1080p"
-          ]
+          ],
+          "required": true
         },
         "seed": {
           "type": "integer"
@@ -388,13 +396,18 @@ export const contract = {
       },
       "wan-2.5-text-to-video": {
         "duration_seconds": {
+          "enum": [
+            5,
+            10
+          ],
           "type": "integer"
         },
         "output_resolution": {
           "enum": [
             "720p",
             "1080p"
-          ]
+          ],
+          "required": true
         },
         "seed": {
           "type": "integer"

@@ -154,6 +154,7 @@ describe('Wan resources', () => {
       prompt: 'Make it cinematic',
       source_video_urls: ['https://cdn.runapi.ai/public/samples/source.mp4'],
       output_resolution: '1080p',
+      audio: false,
     });
 
     expect(mockHttp.request).toHaveBeenCalledWith('POST', '/api/v1/wan/edit_video', {
@@ -162,6 +163,7 @@ describe('Wan resources', () => {
         prompt: 'Make it cinematic',
         source_video_urls: ['https://cdn.runapi.ai/public/samples/source.mp4'],
         output_resolution: '1080p',
+        audio: false,
       },
     });
   });

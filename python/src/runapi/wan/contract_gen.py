@@ -47,6 +47,9 @@ CONTRACT = {
                 }
             },
             "wan-2.6-flash-edit-video": {
+                "audio": {
+                    "required": True
+                },
                 "duration_seconds": {
                     "type": "integer"
                 },
@@ -104,6 +107,7 @@ CONTRACT = {
             },
             "wan-2.5-image-to-video": {
                 "duration_seconds": {
+                    "enum": [5, 10],
                     "required": True,
                     "type": "integer"
                 },
@@ -111,7 +115,8 @@ CONTRACT = {
                     "required": True
                 },
                 "output_resolution": {
-                    "enum": ["720p", "1080p"]
+                    "enum": ["720p", "1080p"],
+                    "required": True
                 },
                 "seed": {
                     "type": "integer"
@@ -271,10 +276,12 @@ CONTRACT = {
             },
             "wan-2.5-text-to-video": {
                 "duration_seconds": {
+                    "enum": [5, 10],
                     "type": "integer"
                 },
                 "output_resolution": {
-                    "enum": ["720p", "1080p"]
+                    "enum": ["720p", "1080p"],
+                    "required": True
                 },
                 "seed": {
                     "type": "integer"

@@ -104,7 +104,7 @@ type TextToVideoParams struct {
 	Prompt                string   `json:"prompt" help:"required; text prompt describing the video"`
 	CallbackURL           string   `json:"callback_url,omitempty" help:"optional; webhook URL for async notifications"`
 	DurationSeconds       int      `json:"duration_seconds,omitempty" help:"optional; duration in seconds"`
-	OutputResolution      string   `json:"output_resolution,omitempty" help:"optional; output resolution"`
+	OutputResolution      string   `json:"output_resolution,omitempty" help:"required for 2-5; optional for other models; output resolution"`
 	AspectRatio           string   `json:"aspect_ratio,omitempty" help:"optional; output aspect ratio"`
 	Ratio                 string   `json:"ratio,omitempty" help:"optional; alternative ratio format (2-7 only)"`
 	NegativePrompt        string   `json:"negative_prompt,omitempty" help:"optional; what to avoid in the video (2-5, 2-7 only)"`
@@ -133,7 +133,7 @@ type ImageToVideoParams struct {
 	LastFrameImageURL     string `json:"last_frame_image_url,omitempty" help:"optional; last frame image URL (2-7 only)"`
 	SourceVideoURL        string `json:"source_video_url,omitempty" help:"optional; source video URL for continuation (2-7 only)"`
 	DurationSeconds       int    `json:"duration_seconds,omitempty" help:"optional; duration in seconds"`
-	OutputResolution      string `json:"output_resolution,omitempty" help:"optional; output resolution"`
+	OutputResolution      string `json:"output_resolution,omitempty" help:"required for 2-5; optional for other models; output resolution"`
 	AspectRatio           string `json:"aspect_ratio,omitempty" help:"optional; output aspect ratio"`
 	NegativePrompt        string `json:"negative_prompt,omitempty" help:"optional; what to avoid (2-5, 2-7 only)"`
 	EnablePromptExpansion *bool  `json:"enable_prompt_expansion,omitempty" help:"optional; auto-expand prompt"`
@@ -227,6 +227,6 @@ type EditVideoParams struct {
 	Watermark             *bool    `json:"watermark,omitempty" help:"optional; add watermark"`
 	Seed                  *int     `json:"seed,omitempty" help:"optional; random seed"`
 	EnableSafetyChecker   *bool    `json:"enable_safety_checker,omitempty" help:"optional; content safety check toggle"`
-	Audio                 *bool    `json:"audio,omitempty" help:"optional; generate audio (flash only)"`
+	Audio                 *bool    `json:"audio,omitempty" help:"required for 2-6 flash; generate audio (flash only)"`
 	MultiShots            *bool    `json:"multi_shots,omitempty" help:"optional; controls whether the generated video uses multiple shots with transitions instead of one continuous shot"`
 }

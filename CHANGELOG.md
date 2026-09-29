@@ -1,5 +1,16 @@
 # Changelog
 
+## [js/v0.4.0](https://github.com/runapi-ai/wan-sdk/releases/tag/js%2Fv0.4.0), [ruby/v0.3.0](https://github.com/runapi-ai/wan-sdk/releases/tag/ruby%2Fv0.3.0), [go/v0.3.0](https://github.com/runapi-ai/wan-sdk/releases/tag/go%2Fv0.3.0), [python/v0.3.0](https://github.com/runapi-ai/wan-sdk/releases/tag/python%2Fv0.3.0) - 2026-09-29
+
+### Changed
+- Require output_resolution for wan-2.5-text-to-video and wan-2.5-image-to-video, and audio for wan-2.6-flash-edit-video, matching the API, which rejects requests that omit them.
+  Migration: Pass output_resolution (720p or 1080p) or audio explicitly on these models.
+- Record the server default output_resolution of the other Wan video models in generated contract metadata.
+
+### Fixed
+- wan-2.5-image-to-video and wan-2.5-text-to-video accept only duration_seconds 5 or 10; other values are rejected client-side instead of failing after submission.
+
+
 ## [js/v0.3.5](https://github.com/runapi-ai/wan-sdk/releases/tag/js%2Fv0.3.5), [go/v0.2.15](https://github.com/runapi-ai/wan-sdk/releases/tag/go%2Fv0.2.15) - 2026-09-28
 
 ### Added
