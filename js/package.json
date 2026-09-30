@@ -3,7 +3,7 @@
   "runapi": {
     "slug": "wan"
   },
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "RunAPI Wan SDK for text-to-video, image-to-video, speech-to-video, animation, text-to-image, and edit-video workflows in JavaScript, Python, Ruby, Go, Java, and PHP",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -31,7 +31,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@runapi.ai/core": "^0.4.4"
+    "@runapi.ai/core": "^0.5.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

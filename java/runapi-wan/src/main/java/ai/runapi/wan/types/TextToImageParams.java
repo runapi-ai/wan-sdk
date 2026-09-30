@@ -23,8 +23,8 @@ public final class TextToImageParams {
   private final List<BoundingBoxGroup> bboxList;
 
   private TextToImageParams(Builder builder) {
-    this.model = WanParamUtils.requireNonBlankTrim(builder.model, "model");
-    this.prompt = WanParamUtils.requireNonBlank(builder.prompt, "prompt");
+    this.model = builder.model;
+    this.prompt = builder.prompt;
     this.callbackUrl = builder.callbackUrl;
     this.aspectRatio = builder.aspectRatio;
     this.outputResolution = builder.outputResolution;
@@ -35,8 +35,8 @@ public final class TextToImageParams {
     this.seed = builder.seed;
     this.enableSafetyChecker = builder.enableSafetyChecker;
     this.sourceImageUrls = WanParamUtils.strings(builder.sourceImageUrls);
-    this.colorPalette = WanParamUtils.list(builder.colorPalette, "colorPalette");
-    this.bboxList = WanParamUtils.list(builder.bboxList, "bboxList");
+    this.colorPalette = WanParamUtils.list(builder.colorPalette);
+    this.bboxList = WanParamUtils.list(builder.bboxList);
   }
 
   /** Creates a new TextToImageParams builder. */
@@ -75,7 +75,7 @@ public final class TextToImageParams {
     }
     List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
     for (ColorPaletteItem item : values) {
-      result.add(item.toMap());
+      result.add(item == null ? null : item.toMap());
     }
     return result;
   }
@@ -118,19 +118,19 @@ public final class TextToImageParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = WanParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
     /** Sets the text prompt. */
     public Builder prompt(String value) {
-      this.prompt = WanParamUtils.requireNonBlank(value, "prompt");
+      this.prompt = value;
       return this;
     }
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = WanParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 
@@ -142,13 +142,13 @@ public final class TextToImageParams {
 
     /** Sets the output aspect ratio. */
     public Builder aspectRatio(String value) {
-      this.aspectRatio = WanParamUtils.requireNonBlankTrim(value, "aspectRatio");
+      this.aspectRatio = value;
       return this;
     }
 
     /** Sets the output resolution. */
     public Builder outputResolution(String value) {
-      this.outputResolution = WanParamUtils.requireNonBlank(value, "outputResolution");
+      this.outputResolution = value;
       return this;
     }
 

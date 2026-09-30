@@ -21,9 +21,9 @@ public final class SpeechToVideoParams {
   private final Boolean enableSafetyChecker;
 
   private SpeechToVideoParams(Builder builder) {
-    this.model = WanParamUtils.requireNonBlankTrim(builder.model, "model");
-    this.sourceImageUrl = WanParamUtils.requireNonBlank(builder.sourceImageUrl, "sourceImageUrl");
-    this.sourceAudioUrl = WanParamUtils.requireNonBlank(builder.sourceAudioUrl, "sourceAudioUrl");
+    this.model = builder.model;
+    this.sourceImageUrl = builder.sourceImageUrl;
+    this.sourceAudioUrl = builder.sourceAudioUrl;
     this.prompt = builder.prompt;
     this.callbackUrl = builder.callbackUrl;
     this.numFrames = builder.numFrames;
@@ -94,31 +94,31 @@ public final class SpeechToVideoParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = WanParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
     /** Sets the source image URL. */
     public Builder sourceImageUrl(String value) {
-      this.sourceImageUrl = WanParamUtils.requireNonBlank(value, "sourceImageUrl");
+      this.sourceImageUrl = value;
       return this;
     }
 
     /** Sets the source audio URL. */
     public Builder sourceAudioUrl(String value) {
-      this.sourceAudioUrl = WanParamUtils.requireNonBlank(value, "sourceAudioUrl");
+      this.sourceAudioUrl = value;
       return this;
     }
 
     /** Sets the text prompt. */
     public Builder prompt(String value) {
-      this.prompt = WanParamUtils.requireNonBlank(value, "prompt");
+      this.prompt = value;
       return this;
     }
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = WanParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 
@@ -136,13 +136,13 @@ public final class SpeechToVideoParams {
 
     /** Sets the output resolution. */
     public Builder outputResolution(String value) {
-      this.outputResolution = WanParamUtils.requireNonBlank(value, "outputResolution");
+      this.outputResolution = value;
       return this;
     }
 
     /** Sets the negative prompt describing what to avoid. */
     public Builder negativePrompt(String value) {
-      this.negativePrompt = WanParamUtils.requireNonBlank(value, "negativePrompt");
+      this.negativePrompt = value;
       return this;
     }
 

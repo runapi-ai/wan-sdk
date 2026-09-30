@@ -9,7 +9,7 @@ public final class ColorPaletteItem {
   private final Double ratio;
 
   private ColorPaletteItem(Builder builder) {
-    this.hex = WanParamUtils.requireNonBlank(builder.hex, "hex");
+    this.hex = builder.hex;
     this.ratio = builder.ratio;
   }
 
@@ -47,7 +47,7 @@ public final class ColorPaletteItem {
 
     /** Sets the hex color. */
     public Builder hex(String value) {
-      this.hex = WanParamUtils.requireNonBlank(value, "hex");
+      this.hex = value;
       return this;
     }
 

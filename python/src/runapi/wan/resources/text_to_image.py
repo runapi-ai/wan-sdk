@@ -4,9 +4,8 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
-from runapi.core import Resource, ValidationError, RequestOptions
+from runapi.core import Resource, RequestOptions
 
-from ..contract_gen import CONTRACT
 from ..types import (
     CompletedImageTaskResponse,
     ImageTaskResponse,
@@ -43,9 +42,6 @@ class TextToImage(Resource):
             The task creation result with an id.
         """
         compacted = self._compact_params(params)
-        self._validate_contract(CONTRACT["text-to-image"], compacted)
-        if not compacted.get("prompt"):
-            raise ValidationError("prompt is required")
         return self._request("post", self.ENDPOINT, body=compacted, options=options)
 
     def get(self, id: str, options: Optional[RequestOptions] = None) -> Any:

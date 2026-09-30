@@ -1,6 +1,5 @@
 package ai.runapi.wan.types;
 
-import ai.runapi.core.errors.ValidationException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +27,8 @@ public final class TextToVideoParams {
   private final Boolean multiShots;
 
   private TextToVideoParams(Builder builder) {
-    this.model = WanParamUtils.requireNonBlankTrim(builder.model, "model");
-    this.prompt = WanParamUtils.requireNonBlank(builder.prompt, "prompt");
+    this.model = builder.model;
+    this.prompt = builder.prompt;
     this.callbackUrl = builder.callbackUrl;
     this.durationSeconds = builder.durationSeconds;
     this.outputResolution = builder.outputResolution;
@@ -47,7 +46,6 @@ public final class TextToVideoParams {
     this.watermark = builder.watermark;
     this.backgroundAudioUrl = builder.backgroundAudioUrl;
     this.multiShots = builder.multiShots;
-    validateR2vReferenceMedia();
   }
 
   /** Creates a new TextToVideoParams builder. */
@@ -85,21 +83,6 @@ public final class TextToVideoParams {
     return WanParamUtils.compact(raw);
   }
 
-  private void validateR2vReferenceMedia() {
-    if (!TextToVideoModel.WAN_2_7_R2V.value().equals(model)) {
-      return;
-    }
-    int count = size(referenceImageUrls) + size(referenceVideoUrls);
-    if (count < 1 || count > 5) {
-      throw new ValidationException(
-          "reference_image_urls or reference_video_urls must include between 1 and 5 total entries");
-    }
-  }
-
-  private static int size(List<?> values) {
-    return values == null ? 0 : values.size();
-  }
-
   /** Builder for {@link TextToVideoParams}. */
   public static final class Builder {
     private String model;
@@ -132,19 +115,19 @@ public final class TextToVideoParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = WanParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
     /** Sets the text prompt. */
     public Builder prompt(String value) {
-      this.prompt = WanParamUtils.requireNonBlank(value, "prompt");
+      this.prompt = value;
       return this;
     }
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = WanParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 
@@ -156,7 +139,7 @@ public final class TextToVideoParams {
 
     /** Sets the output resolution. */
     public Builder outputResolution(String value) {
-      this.outputResolution = WanParamUtils.requireNonBlank(value, "outputResolution");
+      this.outputResolution = value;
       return this;
     }
 
@@ -168,19 +151,19 @@ public final class TextToVideoParams {
 
     /** Sets the output aspect ratio. */
     public Builder aspectRatio(String value) {
-      this.aspectRatio = WanParamUtils.requireNonBlankTrim(value, "aspectRatio");
+      this.aspectRatio = value;
       return this;
     }
 
     /** Sets the alternate aspect ratio value. */
     public Builder ratio(String value) {
-      this.ratio = WanParamUtils.requireNonBlank(value, "ratio");
+      this.ratio = value;
       return this;
     }
 
     /** Sets the negative prompt describing what to avoid. */
     public Builder negativePrompt(String value) {
-      this.negativePrompt = WanParamUtils.requireNonBlank(value, "negativePrompt");
+      this.negativePrompt = value;
       return this;
     }
 
@@ -198,13 +181,13 @@ public final class TextToVideoParams {
 
     /** Sets the first frame image URL. */
     public Builder firstFrameImageUrl(String value) {
-      this.firstFrameImageUrl = WanParamUtils.requireNonBlank(value, "firstFrameImageUrl");
+      this.firstFrameImageUrl = value;
       return this;
     }
 
     /** Sets the reference audio URL. */
     public Builder referenceAudioUrl(String value) {
-      this.referenceAudioUrl = WanParamUtils.requireNonBlank(value, "referenceAudioUrl");
+      this.referenceAudioUrl = value;
       return this;
     }
 
@@ -222,7 +205,7 @@ public final class TextToVideoParams {
 
     /** Sets the acceleration mode. */
     public Builder acceleration(String value) {
-      this.acceleration = WanParamUtils.requireNonBlank(value, "acceleration");
+      this.acceleration = value;
       return this;
     }
 
@@ -240,7 +223,7 @@ public final class TextToVideoParams {
 
     /** Sets the background audio URL. */
     public Builder backgroundAudioUrl(String value) {
-      this.backgroundAudioUrl = WanParamUtils.requireNonBlank(value, "backgroundAudioUrl");
+      this.backgroundAudioUrl = value;
       return this;
     }
 

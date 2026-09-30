@@ -10,7 +10,7 @@ public final class BoundingBoxGroup {
   private final List<BoundingBox> boxes;
 
   private BoundingBoxGroup(List<BoundingBox> boxes) {
-    this.boxes = WanParamUtils.requiredList(boxes, "boxes");
+    this.boxes = WanParamUtils.list(boxes);
   }
 
   /** Creates a group of bounding boxes. */

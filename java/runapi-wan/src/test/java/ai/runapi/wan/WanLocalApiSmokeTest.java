@@ -2,6 +2,9 @@ package ai.runapi.wan;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import ai.runapi.core.errors.ValidationException;
+import ai.runapi.wan.types.TextToVideoParams;
 
 import ai.runapi.core.RequestOptions;
 import ai.runapi.core.json.Json;
@@ -32,6 +35,17 @@ class WanLocalApiSmokeTest {
   void startServer() throws IOException {
     server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
     server.createContext("/api/v1/wan/text_to_image", this::handleTextToImage);
+    server.createContext("/api/v1/wan/text_to_video", exchange -> {
+      CapturedRequest captured = CapturedRequest.from(exchange);
+      requests.add(captured);
+      JsonNode body = Json.mapper().readTree(captured.body);
+      if ("wan-future".equals(body.get("model").asText())
+          && "future-resolution".equals(body.get("output_resolution").asText())) {
+        write(exchange, 200, "{\"id\":\"future-task\",\"status\":\"processing\"}");
+      } else {
+        write(exchange, 400, "{\"error\":\"reference media required by service\"}");
+      }
+    });
     server.start();
   }
 
@@ -82,6 +96,21 @@ class WanLocalApiSmokeTest {
     assertEquals("/api/v1/wan/text_to_image/task_local_123", requests.get(1).path);
     assertEquals("GET", requests.get(2).method);
     assertEquals("/api/v1/wan/text_to_image/task_local_123", requests.get(2).path);
+  }
+  @Test
+  void serviceAcceptsFutureInputsAndRejectsMissingReferenceMedia() {
+    try (WanClient client = WanClient.builder().apiKey("sk-test")
+        .baseUrl("http://127.0.0.1:" + server.getAddress().getPort()).maxRetries(0).build()) {
+      assertEquals("future-task", client.textToVideo().create(TextToVideoParams.builder()
+          .model("wan-future").prompt(" ").outputResolution("future-resolution").build()).getId());
+      ValidationException error = assertThrows(ValidationException.class,
+          () -> client.textToVideo().create(TextToVideoParams.builder()
+              .model("wan-2.7-r2v").prompt("person walking").build()));
+      assertEquals(400, error.getStatusCode());
+      assertEquals("reference media required by service", error.getMessage());
+      assertEquals("{\"error\":\"reference media required by service\"}", error.getResponseBody());
+    }
+    assertEquals(2, requests.size());
   }
 
   private void handleTextToImage(HttpExchange exchange) throws IOException {

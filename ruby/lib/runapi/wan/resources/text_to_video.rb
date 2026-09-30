@@ -34,7 +34,6 @@ module RunApi
         # @return [RunApi::Wan::Types::VideoTaskResponse] task creation result with id
         def create(options: nil, **params)
           params = compact_params(params)
-          validate_params!(params)
           request(:post, ENDPOINT, body: params, options: options)
         end
 
@@ -44,13 +43,6 @@ module RunApi
         # @return [RunApi::Wan::Types::VideoTaskResponse] current task status
         def get(id, options: nil)
           request(:get, "#{ENDPOINT}/#{id}", options: options)
-        end
-
-        private
-
-        def validate_params!(params)
-          validate_contract!(CONTRACT["text-to-video"], params)
-          raise Core::ValidationError, "prompt is required" unless param(params, :prompt)
         end
       end
     end

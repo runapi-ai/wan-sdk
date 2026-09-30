@@ -32,31 +32,6 @@ RSpec.describe RunApi::Wan::Resources::TextToVideo do
       expect(result).to be_a(RunApi::Wan::Types::VideoTaskResponse)
       expect(result.id).to eq("task-r2v")
     end
-
-    it "raises ValidationError when model is missing" do
-      expect { resource.create(prompt: "test") }
-        .to raise_error(RunApi::Core::ValidationError, /model must be one of/)
-    end
-
-    it "raises ValidationError when prompt is missing" do
-      expect { resource.create(model: "wan-2.5-text-to-video", output_resolution: "720p") }
-        .to raise_error(RunApi::Core::ValidationError, /prompt is required/)
-    end
-
-    it "raises ValidationError for invalid model" do
-      expect { resource.create(model: "invalid", prompt: "test") }
-        .to raise_error(RunApi::Core::ValidationError, /model must be one of/)
-    end
-
-    it "accepts all valid T2V models" do
-      contract = RunApi::Wan::CONTRACT["text-to-video"]
-      contract["models"].each do |model|
-        required = contract["fields_by_model"][model].select { |field, rules| rules["required"] && rules["enum"] && field != "model" }
-        params = {model: model, prompt: "test", **required.to_h { |field, rules| [field.to_sym, rules["enum"].first] }}
-        expect(http).to receive(:request).with(:post, endpoint, body: params).and_return("id" => "t1")
-        resource.create(**params)
-      end
-    end
   end
 
   describe "#get" do
@@ -100,34 +75,6 @@ RSpec.describe RunApi::Wan::Resources::ImageToVideo do
       result = resource.create(**params)
       expect(result).to be_a(RunApi::Wan::Types::VideoTaskResponse)
       expect(result.id).to eq("task-2")
-    end
-
-    it "raises ValidationError when model is missing" do
-      expect { resource.create(first_frame_image_url: "https://cdn.runapi.ai/public/samples/input.png") }
-        .to raise_error(RunApi::Core::ValidationError, /model must be one of/)
-    end
-
-    it "raises ValidationError for invalid model" do
-      expect { resource.create(model: "bad-model", first_frame_image_url: "https://cdn.runapi.ai/public/samples/input.png") }
-        .to raise_error(RunApi::Core::ValidationError, /model must be one of/)
-    end
-
-    it "accepts all valid I2V models" do
-      contract = RunApi::Wan::CONTRACT["image-to-video"]
-      contract["models"].each do |model|
-        required = contract["fields_by_model"][model].select { |_, rules| rules["required"] }
-        params = required.to_h do |field, rules|
-          value = if rules["enum"]
-            rules["enum"].first
-          else
-            (rules["type"] == "integer") ? 5 : "https://cdn.runapi.ai/public/samples/x"
-          end
-          [field.to_sym, value]
-        end
-        params[:model] = model
-        expect(http).to receive(:request).with(:post, endpoint, body: params).and_return("id" => "t1")
-        resource.create(**params)
-      end
     end
   end
 
@@ -174,16 +121,6 @@ RSpec.describe RunApi::Wan::Resources::EditVideo do
       result = resource.create(**params)
       expect(result.id).to eq("task-edit-27")
     end
-
-    it "raises ValidationError when 2.6 source videos are missing" do
-      expect { resource.create(model: "wan-2.6-edit-video", prompt: "test") }
-        .to raise_error(RunApi::Core::ValidationError, /source_video_urls is required/)
-    end
-
-    it "raises ValidationError when 2.7 source video is missing" do
-      expect { resource.create(model: "wan-2.7-edit-video") }
-        .to raise_error(RunApi::Core::ValidationError, /source_video_url is required/)
-    end
   end
 end
 
@@ -204,16 +141,6 @@ RSpec.describe RunApi::Wan::Resources::Animate do
       result = resource.create(**params)
       expect(result).to be_a(RunApi::Wan::Types::VideoTaskResponse)
       expect(result.id).to eq("task-animate")
-    end
-
-    it "raises ValidationError when source_image_url is missing" do
-      expect { resource.create(model: "wan-2.2-animate-move", reference_video_url: "https://cdn.runapi.ai/public/samples/motion.mp4") }
-        .to raise_error(RunApi::Core::ValidationError, /source_image_url is required/)
-    end
-
-    it "raises ValidationError when reference_video_url is missing" do
-      expect { resource.create(model: "wan-2.2-animate-move", source_image_url: "https://cdn.runapi.ai/public/samples/character.png") }
-        .to raise_error(RunApi::Core::ValidationError, /reference_video_url is required/)
     end
   end
 end
@@ -236,26 +163,6 @@ RSpec.describe RunApi::Wan::Resources::SpeechToVideo do
       result = resource.create(**params)
       expect(result).to be_a(RunApi::Wan::Types::VideoTaskResponse)
       expect(result.id).to eq("task-speech")
-    end
-
-    it "raises ValidationError when source_image_url is missing" do
-      expect {
-        resource.create(
-          model: "wan-2.2-a14b-speech-to-video-turbo",
-          prompt: "speak naturally",
-          source_audio_url: "https://cdn.runapi.ai/public/samples/speech.mp3"
-        )
-      }.to raise_error(RunApi::Core::ValidationError, /source_image_url is required/)
-    end
-
-    it "raises ValidationError when source_audio_url is missing" do
-      expect {
-        resource.create(
-          model: "wan-2.2-a14b-speech-to-video-turbo",
-          prompt: "speak naturally",
-          source_image_url: "https://cdn.runapi.ai/public/samples/portrait.png"
-        )
-      }.to raise_error(RunApi::Core::ValidationError, /source_audio_url is required/)
     end
   end
 end
@@ -281,21 +188,6 @@ RSpec.describe RunApi::Wan::Resources::TextToImage do
 
       result = resource.create(**params)
       expect(result.id).to eq("task-source")
-    end
-
-    it "raises ValidationError when model is missing" do
-      expect { resource.create(prompt: "test") }
-        .to raise_error(RunApi::Core::ValidationError, /model must be one of/)
-    end
-
-    it "raises ValidationError when prompt is missing" do
-      expect { resource.create(model: "wan-2.7-image") }
-        .to raise_error(RunApi::Core::ValidationError, /prompt is required/)
-    end
-
-    it "raises ValidationError for invalid model" do
-      expect { resource.create(model: "invalid", prompt: "test") }
-        .to raise_error(RunApi::Core::ValidationError, /model must be one of/)
     end
   end
 

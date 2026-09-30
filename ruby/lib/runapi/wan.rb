@@ -2,7 +2,6 @@
 
 require "runapi/core"
 require_relative "wan/types"
-require_relative "wan/contract_gen"
 require_relative "wan/resources/text_to_video"
 require_relative "wan/resources/image_to_video"
 require_relative "wan/resources/speech_to_video"

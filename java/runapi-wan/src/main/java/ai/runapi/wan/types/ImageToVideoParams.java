@@ -27,7 +27,7 @@ public final class ImageToVideoParams {
   private final String ratio;
 
   private ImageToVideoParams(Builder builder) {
-    this.model = WanParamUtils.requireNonBlankTrim(builder.model, "model");
+    this.model = builder.model;
     this.prompt = builder.prompt;
     this.callbackUrl = builder.callbackUrl;
     this.firstFrameImageUrl = builder.firstFrameImageUrl;
@@ -118,37 +118,37 @@ public final class ImageToVideoParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = WanParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
     /** Sets the text prompt. */
     public Builder prompt(String value) {
-      this.prompt = WanParamUtils.requireNonBlank(value, "prompt");
+      this.prompt = value;
       return this;
     }
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = WanParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 
     /** Sets the first frame image URL. */
     public Builder firstFrameImageUrl(String value) {
-      this.firstFrameImageUrl = WanParamUtils.requireNonBlank(value, "firstFrameImageUrl");
+      this.firstFrameImageUrl = value;
       return this;
     }
 
     /** Sets the last frame image URL. */
     public Builder lastFrameImageUrl(String value) {
-      this.lastFrameImageUrl = WanParamUtils.requireNonBlank(value, "lastFrameImageUrl");
+      this.lastFrameImageUrl = value;
       return this;
     }
 
     /** Sets the source video URL. */
     public Builder sourceVideoUrl(String value) {
-      this.sourceVideoUrl = WanParamUtils.requireNonBlank(value, "sourceVideoUrl");
+      this.sourceVideoUrl = value;
       return this;
     }
 
@@ -160,7 +160,7 @@ public final class ImageToVideoParams {
 
     /** Sets the output resolution. */
     public Builder outputResolution(String value) {
-      this.outputResolution = WanParamUtils.requireNonBlank(value, "outputResolution");
+      this.outputResolution = value;
       return this;
     }
 
@@ -172,13 +172,13 @@ public final class ImageToVideoParams {
 
     /** Sets the output aspect ratio. */
     public Builder aspectRatio(String value) {
-      this.aspectRatio = WanParamUtils.requireNonBlankTrim(value, "aspectRatio");
+      this.aspectRatio = value;
       return this;
     }
 
     /** Sets the negative prompt describing what to avoid. */
     public Builder negativePrompt(String value) {
-      this.negativePrompt = WanParamUtils.requireNonBlank(value, "negativePrompt");
+      this.negativePrompt = value;
       return this;
     }
 
@@ -196,7 +196,7 @@ public final class ImageToVideoParams {
 
     /** Sets the acceleration mode. */
     public Builder acceleration(String value) {
-      this.acceleration = WanParamUtils.requireNonBlank(value, "acceleration");
+      this.acceleration = value;
       return this;
     }
 
@@ -226,19 +226,19 @@ public final class ImageToVideoParams {
 
     /** Sets the driving audio URL. */
     public Builder drivingAudioUrl(String value) {
-      this.drivingAudioUrl = WanParamUtils.requireNonBlank(value, "drivingAudioUrl");
+      this.drivingAudioUrl = value;
       return this;
     }
 
     /** Sets the background audio URL. */
     public Builder backgroundAudioUrl(String value) {
-      this.backgroundAudioUrl = WanParamUtils.requireNonBlank(value, "backgroundAudioUrl");
+      this.backgroundAudioUrl = value;
       return this;
     }
 
     /** Sets the alternate aspect ratio value. */
     public Builder ratio(String value) {
-      this.ratio = WanParamUtils.requireNonBlank(value, "ratio");
+      this.ratio = value;
       return this;
     }
 

@@ -1,7 +1,7 @@
 import pytest
 
 from runapi.core import config
-from runapi.core.errors import AuthenticationError, ValidationError
+from runapi.core.errors import AuthenticationError
 from runapi.wan import WanClient
 from runapi.wan.resources.animate import Animate
 from runapi.wan.resources.edit_video import EditVideo
@@ -138,57 +138,6 @@ def test_run_narrows_completed_type():
     result = client.text_to_video.run(model="wan-2.6-text-to-video", prompt="a serene lake")
     assert isinstance(result, CompletedVideoTaskResponse)
     assert result.videos[0].url == "https://x/y.mp4"
-
-
-# --- validation -----------------------------------------------------------
-
-
-def test_rejects_unknown_model():
-    client = WanClient(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="model must be one of"):
-        client.text_to_video.create(model="nope", prompt="hi there")
-
-
-def test_requires_prompt():
-    client = WanClient(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="prompt is required"):
-        client.text_to_video.create(model="wan-2.6-text-to-video")
-
-
-def test_animate_requires_source_and_reference():
-    client = WanClient(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="reference_video_url is required"):
-        client.animate.create(model="wan-2.2-animate-move")
-    with pytest.raises(ValidationError, match="source_image_url is required"):
-        client.animate.create(model="wan-2.2-animate-move", reference_video_url="https://x/v.mp4")
-
-
-def test_speech_to_video_requires_image_and_audio():
-    client = WanClient(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="source_audio_url is required"):
-        client.speech_to_video.create(
-            model="wan-2.2-a14b-speech-to-video-turbo", prompt="say hi"
-        )
-    with pytest.raises(ValidationError, match="source_image_url is required"):
-        client.speech_to_video.create(
-            model="wan-2.2-a14b-speech-to-video-turbo",
-            prompt="say hi",
-            source_audio_url="https://x/a.mp3",
-        )
-
-
-def test_edit_video_2_6_requires_prompt_and_source_urls():
-    client = WanClient(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="prompt is required"):
-        client.edit_video.create(model="wan-2.6-edit-video")
-    with pytest.raises(ValidationError, match="source_video_urls is required"):
-        client.edit_video.create(model="wan-2.6-edit-video", prompt="trim it")
-
-
-def test_edit_video_non_2_6_requires_single_source_url():
-    client = WanClient(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="source_video_url is required"):
-        client.edit_video.create(model="wan-2.7-edit-video")
 
 
 def test_edit_video_non_2_6_accepts_single_source_url():

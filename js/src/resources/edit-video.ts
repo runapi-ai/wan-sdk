@@ -1,7 +1,6 @@
-import type { HttpClient, PollingOptions, RequestOptions, ActionSchema } from '@runapi.ai/core';
-import { compactParams, validateParams } from '@runapi.ai/core';
+import type { HttpClient, PollingOptions, RequestOptions } from '@runapi.ai/core';
+import { compactParams } from '@runapi.ai/core';
 import { pollUntilComplete } from '@runapi.ai/core/internal';
-import { contract } from '../contract_gen';
 import type { CompletedVideoTaskResponse, EditVideoParams, TaskCreateResponse, VideoTaskResponse } from '../types';
 
 const ENDPOINT = '/api/v1/wan/edit_video';
@@ -33,7 +32,6 @@ export class EditVideo {
    */
   async create(params: EditVideoParams, options?: RequestOptions): Promise<TaskCreateResponse> {
     const body = compactParams(params);
-    validateParams(contract['edit-video'] as ActionSchema, body as Record<string, unknown>);
     return this.http.request<TaskCreateResponse>('POST', ENDPOINT, {
       body,
       ...options,

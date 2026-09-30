@@ -126,27 +126,6 @@ class WanClientTest {
   }
 
   @Test
-  void createPreservesCreativeContentButTrimsModel() throws Exception {
-    CapturingTransport transport = new CapturingTransport("{\"id\":\"task_trim_1\",\"status\":\"processing\"}");
-    WanClient client = WanClient.builder().apiKey("sk-test").transport(transport).build();
-
-    client.textToVideo()
-        .create(
-            TextToVideoParams.builder()
-                .model("  wan-2.6-text-to-video  ")
-                .prompt("  spacing matters  ")
-                .negativePrompt("  blurry  ")
-                .build());
-
-    JsonNode body = bodyJson(transport.request);
-    // Protocol identifier: trimmed.
-    assertEquals("wan-2.6-text-to-video", body.get("model").asText());
-    // Creative content: preserved verbatim, including surrounding whitespace.
-    assertEquals("  spacing matters  ", body.get("prompt").asText());
-    assertEquals("  blurry  ", body.get("negative_prompt").asText());
-  }
-
-  @Test
   void textToVideoR2VUsesPublicFieldNames() throws Exception {
     CapturingTransport transport = new CapturingTransport("{\"id\":\"task_r2v_123\",\"status\":\"processing\"}");
     WanClient client = WanClient.builder().apiKey("sk-test").transport(transport).build();
@@ -164,41 +143,6 @@ class WanClientTest {
     assertEquals("https://cdn.runapi.ai/public/samples/person.jpg", body.get("reference_image_urls").get(0).asText());
     assertEquals("1080p", body.get("output_resolution").asText());
     assertFalse(body.has("reference_image"));
-  }
-
-  @Test
-  void textToVideoR2VRequiresReferenceMediaBeforeRequest() {
-    CapturingTransport transport = new CapturingTransport("{\"id\":\"task_r2v_123\",\"status\":\"processing\"}");
-    WanClient client = WanClient.builder().apiKey("sk-test").transport(transport).build();
-
-    assertThrows(
-        ValidationException.class,
-        () ->
-            client.textToVideo()
-                .create(
-                    TextToVideoParams.builder()
-                        .model(TextToVideoModel.WAN_2_7_R2V)
-                        .prompt("A person walking")
-                        .build()));
-    assertEquals(null, transport.request);
-  }
-
-  @Test
-  void rejectsInvalidContractValueBeforeRequest() {
-    CapturingTransport transport = new CapturingTransport("{\"id\":\"task_img_123\"}");
-    WanClient client = WanClient.builder().apiKey("sk-test").transport(transport).build();
-
-    assertThrows(
-        ValidationException.class,
-        () ->
-            client.textToImage()
-                .create(
-                    TextToImageParams.builder()
-                        .model(TextToImageModel.WAN_2_7_IMAGE)
-                        .prompt("A surreal dreamscape")
-                        .aspectRatio("bad")
-                        .build()));
-    assertEquals(null, transport.request);
   }
 
   @Test

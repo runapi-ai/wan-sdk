@@ -13,9 +13,9 @@ public final class AnimateParams {
   private final Boolean enableSafetyChecker;
 
   private AnimateParams(Builder builder) {
-    this.model = WanParamUtils.requireNonBlankTrim(builder.model, "model");
-    this.sourceImageUrl = WanParamUtils.requireNonBlank(builder.sourceImageUrl, "sourceImageUrl");
-    this.referenceVideoUrl = WanParamUtils.requireNonBlank(builder.referenceVideoUrl, "referenceVideoUrl");
+    this.model = builder.model;
+    this.sourceImageUrl = builder.sourceImageUrl;
+    this.referenceVideoUrl = builder.referenceVideoUrl;
     this.callbackUrl = builder.callbackUrl;
     this.outputResolution = builder.outputResolution;
     this.enableSafetyChecker = builder.enableSafetyChecker;
@@ -62,31 +62,31 @@ public final class AnimateParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = WanParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
     /** Sets the source image URL. */
     public Builder sourceImageUrl(String value) {
-      this.sourceImageUrl = WanParamUtils.requireNonBlank(value, "sourceImageUrl");
+      this.sourceImageUrl = value;
       return this;
     }
 
     /** Sets the reference video URL. */
     public Builder referenceVideoUrl(String value) {
-      this.referenceVideoUrl = WanParamUtils.requireNonBlank(value, "referenceVideoUrl");
+      this.referenceVideoUrl = value;
       return this;
     }
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = WanParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 
     /** Sets the output resolution. */
     public Builder outputResolution(String value) {
-      this.outputResolution = WanParamUtils.requireNonBlank(value, "outputResolution");
+      this.outputResolution = value;
       return this;
     }
 

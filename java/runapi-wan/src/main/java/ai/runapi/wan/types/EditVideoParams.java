@@ -25,7 +25,7 @@ public final class EditVideoParams {
   private final Boolean multiShots;
 
   private EditVideoParams(Builder builder) {
-    this.model = WanParamUtils.requireNonBlankTrim(builder.model, "model");
+    this.model = builder.model;
     this.sourceVideoUrl = builder.sourceVideoUrl;
     this.sourceVideoUrls = WanParamUtils.strings(builder.sourceVideoUrls);
     this.prompt = builder.prompt;
@@ -107,13 +107,13 @@ public final class EditVideoParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = WanParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
     /** Sets the source video URL. */
     public Builder sourceVideoUrl(String value) {
-      this.sourceVideoUrl = WanParamUtils.requireNonBlank(value, "sourceVideoUrl");
+      this.sourceVideoUrl = value;
       return this;
     }
 
@@ -125,31 +125,31 @@ public final class EditVideoParams {
 
     /** Sets the text prompt. */
     public Builder prompt(String value) {
-      this.prompt = WanParamUtils.requireNonBlank(value, "prompt");
+      this.prompt = value;
       return this;
     }
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = WanParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 
     /** Sets the negative prompt describing what to avoid. */
     public Builder negativePrompt(String value) {
-      this.negativePrompt = WanParamUtils.requireNonBlank(value, "negativePrompt");
+      this.negativePrompt = value;
       return this;
     }
 
     /** Sets the reference image URL. */
     public Builder referenceImageUrl(String value) {
-      this.referenceImageUrl = WanParamUtils.requireNonBlank(value, "referenceImageUrl");
+      this.referenceImageUrl = value;
       return this;
     }
 
     /** Sets the output resolution. */
     public Builder outputResolution(String value) {
-      this.outputResolution = WanParamUtils.requireNonBlank(value, "outputResolution");
+      this.outputResolution = value;
       return this;
     }
 
@@ -161,7 +161,7 @@ public final class EditVideoParams {
 
     /** Sets the output aspect ratio. */
     public Builder aspectRatio(String value) {
-      this.aspectRatio = WanParamUtils.requireNonBlankTrim(value, "aspectRatio");
+      this.aspectRatio = value;
       return this;
     }
 
@@ -173,7 +173,7 @@ public final class EditVideoParams {
 
     /** Sets the audio setting. */
     public Builder audioSetting(String value) {
-      this.audioSetting = WanParamUtils.requireNonBlank(value, "audioSetting");
+      this.audioSetting = value;
       return this;
     }
 
